@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <meta property="og:title" content="EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations"/>
+    <meta property="og:url" content="https://redorangeyellowy.github.io/EgoWorld/"/>
+    <!-- <meta property="og:image" content="static/images/og_tag_header_image.jpg" /> -->
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+
+
+    <title>EgoWorld</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+    rel="stylesheet">
+    <!-- <link rel="icon" href="static/images/icon.jpg"> -->
+
+    <link rel="stylesheet" href="static/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+    <script src="static/js/bulma-carousel.min.js"></script>
+    <script src="static/js/bulma-slider.min.js"></script>
+    <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="publication-header">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <!-- <div class="columns is-centered"> -->
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">EgoWorld:<br>Translating Exocentric View to Egocentric View<br>using Rich Exocentric Observations</h1>
+          <h1 class="title is-3">arXiv 2025</h1>
+        </div>
+    </div>
+  </div>   
+</section>
+
+<section class="publication-author-block">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+		      <div class="is-size-3 publication-authors">
+          </div>
+          
+          <div class="is-size-3 publication-authors">
+            <!-- span class="author-block"> </span> 
+            <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://redorangeyellowy.github.io/" target="_blank">Junho Park</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://www.linkedin.com/in/andrew-sangwoo-ye-97a175199/" target="_blank">Andrew Sangwoo Ye</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="https://taeinkwon.com/" target="_blank">Taein Kwon</a><sup>3†</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>AI Lab, LG Electronics,</span>
+            <span class="author-block"><sup>2</sup>ETH Zurich,</span>
+            <span class="author-block"><sup>3</sup>Visual Geometry Group, University of Oxford</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">(† : Corresponding author)</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              
+              <span class="link-block">
+                <a href="https://redorangeyellowy.github.io/EgoWorld/" target="_blank" 
+                class="external-link button is-normal is-rounded is-dark">
+                <!-- <a target="_blank" class="external-link button is-normal is-rounded is-dark"> -->
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://github.com/redorangeyellowy/EgoWorld" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <!-- <a target="_blank" class="external-link button is-normal is-rounded is-dark"> -->
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+              </a>
+              </span>
+
+              <!-- <span class="link-block">
+                <a href="https://redorangeyellowy.github.io/EgoWorld/" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-youtube"></i>
+                </span>
+                <span>Video</span>
+              </a>
+              </span> -->
+              
+             <!--span class="link-block">
+              <a href=""  target="_blank"
+                 class="external-link button is-normal is-rounded">
+                <span class="icon">
+                    <i class="fas fa-infinity"></i>
+                </span>
+                <span>Colab</span>
+              </a>
+             </span -->
+            
+            <!-- <span class="link-block">
+              <a href="https://huggingface.co/spaces/AttendAndExcite/Attend-and-Excite"  target="_blank"
+                 class="external-link button is-normal is-rounded">
+                <span class="icon">
+                    <i class="fas fa-laptop"></i>
+                </span>
+                <span>Demo</span>
+              </a>
+             </span> -->
+           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-small">
+  <!-- <div class="hero-body"> -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- <div id="results-carousel" class="carousel results-carousel"> -->
+      <div class="container">
+      <div class="item">
+      <div class="column is-centered has-text-centered">
+        <img src="static/images/pipeline.png" alt="pipeline"/>
+      <h2 class="subtitle">
+        We propose a novel method, AttentionHand, for text-driven controllable hand image generation.
+        (1) In the data preparation phase, we prepare global and local RGB images, global and local hand mesh images, bounding box, and text prompt.
+        (2) In the encoding phase, we get global and local latent image embeddings from VQ-GAN, and text embedding from CLIP.
+        (3) In the conditioning phase, we refine image embeddings through the text attention stage, and obtain the diffusion feature through the visual attention stage.
+        (4) In the decoding phase, we generate a new hand image from the diffusion feature.
+      </h2>
+	  </div>
+    </div>
+  </div>
+ <!--  </div> -->
+  </div>
+  </div>
+ <!--  </div> -->
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- div class="item">
+          <p style="margin-bottom: 30px">
+        <video poster="" id="tree" autoplay controls muted loop height="100%">
+          <source src="static/figures/video.mp4"
+          type="video/mp4">
+        </video>
+        </p>
+        </div -->
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recently, there has been a significant amount of research conducted on 3D hand reconstruction to use various forms of human-computer interaction. 
+            However, 3D hand reconstruction in the wild is challenging due to extreme lack of in-the-wild 3D hand datasets. 
+            Especially, when hands are in complex pose such as interacting hands, the problems like appearance similarity, self-handed occclusion and depth ambiguity make it more difficult. 
+            To overcome these issues, we propose AttentionHand, a novel method for text-driven controllable hand image generation. 
+            Since AttentionHand can generate various and numerous in-the-wild hand images well-aligned with 3D hand label, we can acquire a new 3D hand dataset, and can relieve the domain gap between indoor and outdoor scenes. 
+            Our method needs easy-to-use four modalities (i.e, an RGB image, a hand mesh image from 3D label, a bounding box, and a text prompt). 
+            These modalities are embedded into the latent space by the encoding phase. 
+            Then, through the text attention stage, hand-related tokens from the given text prompt are attended to highlight hand-related regions of the latent embedding. 
+            After the highlighted embedding is fed to the visual attention stage, hand-related regions in the embedding are attended by conditioning global and local hand mesh images with the diffusion-based pipeline. 
+            In the decoding phase, the final feature is decoded to new hand images, which are well-aligned with the given hand mesh image and text prompt. 
+            As a result, AttentionHand achieved state-of-the-art among text-to-hand image generation models, and the performance of 3D hand mesh reconstruction was improved by additionally training with hand images generated by AttentionHand.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title has-text-centered">Video</h2>
+      <center>
+        <iframe width="630" height="354" src="https://www.youtube.com/embed/9EWs2IX4cus" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </center>
+    </div>
+  </div>
+</section> -->
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title has-text-centered">Results of Text-to-Hand Image Generation</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen1.png" alt="exp_gen1" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen2.png" alt="exp_gen2" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen3.png" alt="exp_gen3" width="800px"/>
+      </div>
+      <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen4.png" alt="exp_gen4" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen5.png" alt="exp_gen5" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen6.png" alt="exp_gen6" width="800px"/>
+      </div>
+      <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen7.png" alt="exp_gen7" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen8.png" alt="exp_gen8" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen9.png" alt="exp_gen9" width="800px"/>
+      </div>
+      <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen10.png" alt="exp_gen10" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen11.png" alt="exp_gen11" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen12.png" alt="exp_gen12" width="800px"/>
+      </div>
+      <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen13.png" alt="exp_gen13" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen14.png" alt="exp_gen14" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen15.png" alt="exp_gen15" width="800px"/>
+      </div>
+      <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen16.png" alt="exp_gen16" width="800px"/>
+      </div>
+	  <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen17.png" alt="exp_gen17" width="800px"/>
+      </div>
+    <div class="column is-centered has-text-centered">
+        <img src="static/images/exp_gen18.png" alt="exp_gen18" width="800px"/>
+      </div>
+  </div>
+</div>
+</div>
+</section>
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title has-text-centered">Results of 3D Hand Mesh Reconstruction on MSCOCO</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/exp_mesh1.png" alt="exp_mesh1" width="800px"/>
+        </div>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/exp_mesh2.png" alt="exp_mesh2" width="800px"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title has-text-centered">Results of 3D Hand Mesh Reconstruction on Re:InterHand</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/exp_mesh3.png" alt="exp_mesh3" width="800px"/>
+        </div>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/exp_mesh4.png" alt="exp_mesh4" width="800px"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Motivation</h2>
+		<div class="column is-centered has-text-centered">
+          <img src="static/images/intro.png" alt="intro" width="700px"/>
+		</div>
+		<p class="content has-text-justified">
+            3D hand mesh reconstruction becomes difficult <b>when hands are in the wild, due to insufficiency of in-the-wild 3D hand datasets.</b>
+            Compared to in-the-lab datasets, acquisition in-the-wild datasets is challenging due to unpredictable conditions such as weather, lighting, cost of sensors, and safety issues on crowded roads and public places.
+            Even if an in-the-wild dataset is collected, data diversity would be poor due to the aforementioned severe constraints.
+            <b>Although arbitrary labels can be obtained through pseudo annotation, the precision and accuracy is still poor compared to in-the-lab datasets as shown in the figure (a).</b>
+            To tackle this problem, several synthetic datasets have introduced.
+            However, <b>since the hand and background images are synthesized out of harmony, they consist of unnatural and unrealistic hand images as shown in the figure (b).</b> 
+            Hence, it is difficult to overcome the domain gap between indoor and outdoor scenes with synthetic datasets.
+            To address these issues, we propose AttentionHand, a new method for the text-driven controllable hand image generation.
+            <b>AttentionHand is designed to create accurate, natural, realistic and harmonious in-the-wild hand images easily and infinitely as shown in the figure (c).</b>
+        </p>
+      </div>
+    </div>
+  </div>
+</section> 
+
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+		<div class="column is-centered has-text-centered">
+          <img src="static/images/TAS.png" alt="TAS" width="700px"/>
+		</div>
+		<p class="content has-text-justified">
+      <b>Overall process of the text attention stage (TAS).</b>
+      TAS attends on hand-related tokens from the given text prompt by leveraging attention maps.
+      Specifically, TAS extracts hand-related attention maps (i.e., <i>holding</i> and <i>hand</i>), and these attention maps are updated to highlight hand-related regions by the refinement based on the softmax operation and Gaussian filter.
+      With TAS, we can obtain more hand-focused images than before.
+        </p>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/VAS.png" alt="VAS" width="500px"/>
+        </div>
+        <p class="content has-text-justified">
+          <b>Overall process of the visual attention stage (VAS).</b>
+          VAS attends on hand-related regions by conditioning global and local hand mesh images with the SD-based pipeline.
+          With global and local information, AttentionHand can be jointly optimized to reflect the global context (i.e., in-the-wild background) and local context (i.e., hand-focused foreground.)
+          In the end of the conditioning phase, we finally get the diffusion feature, which is decoded to new hand images in the decoding phase. 
+          Hence, AttentionHand can generate well-aligned hand images with the given mesh image and text prompt for the 3D hand mesh reconstruction in the wild. 
+        </p>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/optimization.png" alt="optimization" width="500px"/>
+        </div>
+        <p class="content has-text-justified">
+          <b>Overall process of the optimization of AttentionHand.</b>
+          By global and local denoising of updated noisy embeddings with t diffusion steps, we obtain global and local predicted noises.
+          They are optimized by L2 loss with global and local residual noises. 
+          Note that global and local denoising networks share weights.
+        </p>
+      </div>
+    </div>
+  </div>
+</section> 
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Exploration of Text Attention Stage</h2>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/exp_TAS.png" alt="exp_TAS" width="700px"/>
+        </div>
+		    <p class="content has-text-justified">
+          Attention maps are well described their corresponding tokens in the case of with TAS. 
+          It implies that with TAS, AttentionHand can reflect hand-related tokens enough compare to the case of without TAS.
+        </p>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/exp_Gaussian.png" alt="exp_Gaussian" width="700px"/>
+        </div>
+        <p class="content has-text-justified">
+          <b>(1) Ablation study for Gaussian filter.</b>
+          In the case of no/random Gaussian filter, the hand was disappeared or its shape became strange.
+          Howver, in the case of fixed Gaussian filter, generated images are well-aligned with given hand mesh images and look natural.
+          Hence, we determined fixed Gaussian filter makes the generated image plausibly regardless of diffusion timestep.
+          <br>
+          <b>(2) Ablation study for our loss.</b>
+          While the load balancing loss flattens the 2D attention map as 1D representation, leading to distort spatial knowledge, our loss updates the image embedding based on the spatial information of the attention map.
+          Therefore, generated images with our loss are well-fit with given hand mesh images.
+          <br>
+          <b>(3) Ablation study for regularization of updated noise.</b>
+          If the regularization term is randomly set, the updated noise tends to be out of distribution.
+          Specifically, generated images are not aligned with given mesh images, or missed some hands. 
+          Therefore, it is necessary to regularize the updated noise for faithful hand image generation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section> 
+
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Model Design Justification</h2>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/table_comparison.png" alt="table_comparison" width="700px"/>
+        </div>
+		    <p class="content has-text-justified">
+          To justify our model's superiority, we compared the characteristics of prior works including our model.
+          As shown in the table, our model's distinctive and potential features compared to prior works are (1) harmonious preservation of locality (i.e., hand) with globality (i.e., in-the-wild scene), and (2) selective attention on hand-related tokens by cross attention.
+        </p>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/table_VAS.png" alt="table_VAS" width="700px"/>
+        </div>
+        <p class="content has-text-justified">
+          Specifically, to harmonize globality and locality, we developed global and local designs for the visual attention stage (VAS).
+          Moreover, since the global and local branches are designed structurally same, we set them to share their weights for reducing the number of training parameters and improving the generalizability.
+          We experimentally verified the effectiveness of our design as shown in the table.
+        </p>
+      </div>
+    </div>
+  </div>
+</section> 
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Robustness of Our Generated Dataset</h2>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/exp_multi.png" alt="exp_multi" width="700px"/>
+        </div>
+		    <p class="content has-text-justified">
+          To verify robustness of our generated dataset, we generated multiple hand images from same modalities as shown in the figure.
+          As a result, all generated images are perfectly well-aligned with given hand mesh images. 
+        </p>
+        <div class="column is-centered has-text-centered">
+          <img src="static/images/exp_tsne.png" alt="exp_tsne" width="700px"/>
+        </div>
+        <p class="content has-text-justified">
+          Moreover, we found the t-SNE distribution of AttentionHand is broader than MSCOCO as shown in the figure.
+          As a result, we believe that AttentionHand can contribute to the downstream task with our extensive in-the-wild hand images, leading to alleviate the domain gap between indoor and outdoor scenes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero" id="BibTeX">
+  <div class="container is-max-desktop">
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content"> -->
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2024attentionhand,
+  author    = {Park, Junho and Kong, Kyeongbo and Kang, Suk-Ju},
+  title     = {AttentionHand: Text-driven Controllable Hand Image Generation for 3D Hand Reconstruction in the Wild},
+  journal   = {European Conference on Computer Vision},
+  year      = {2024},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <div class="content">
+        <p>
+          This website is licensed under a <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+        Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+      <p>
+        Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
+        href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+</footer>
+
+
+  <script type="text/javascript">
+    var sc_project=12351448; 
+    var sc_invisible=1; 
+    var sc_security="c676de4f"; 
+  </script>
+  <script type="text/javascript"
+  src="https://www.statcounter.com/counter/counter.js"
+  async></script>
+  <noscript><div class="statcounter"><a title="Web Analytics"
+    href="https://statcounter.com/" target="_blank"><img
+    class="statcounter"
+    src="https://c.statcounter.com/12351448/0/c676de4f/1/"
+    alt="Web Analytics"></a></div></noscript>
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
