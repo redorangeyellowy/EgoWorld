@@ -190,7 +190,16 @@
                 <img src="static/images/method.png" alt="method" width="700px"/>
           </div>
 		        <p class="content has-text-justified">
-              EgoWorld has a two-stage pipeline : (1) Exocentric view observation \( \Phi_{exo} \), which extracts diverse observations from the exocentric view, including projected point clouds, 3D hand poses, and textual descriptions; and (2) egocentric view reconstruction \( \Phi_{ego} \), which reconstructs the egocentric view based on cues from the exocentric view observation.
+              <!-- EgoWorld has a two-stage pipeline : (1) Exocentric view observation \( \Phi_{exo} \), which extracts diverse observations from the exocentric view, including projected point clouds, 3D hand poses, and textual descriptions; and (2) egocentric view reconstruction \( \Phi_{ego} \), which reconstructs the egocentric view based on cues from the exocentric view observation. -->
+              EgoWorld consists of two stages: exocentric view observation \( \Phi_{exo}$ \) and egocentric view reconstruction \( \Phi_{ego} \).
+              First, given a single exocentric image \( {I}_{exo} \in \mathbb{R}^{H \times W \times 3} \), \( \Phi_{exo} \) predicts a corresponding sparse egocentric RGB map \( {S}_{ego} \in \mathbb{R}^{H \times W \times 3} \), 3D egocentric hand pose \( {P}_{ego} \in \mathbb{R}^{N \times 3} \), and a textual description \( T_{exo} \).
+              \( H \) and \( W \) indicates height and width of \( {I}_{exo} \), and \( N \) indicates the number of keypoints of the hand.
+              Then, in \( \Phi_{ego} \), an egocentric image \( \hat{I}_{ego} \in \mathbb{R}^{H \times W \times 3} \) is generated based on the observations predicted in \( \Phi_{exo} \).
+              Therefore, EgoWorld is formulated as follows:
+              \[
+              {S}_{ego}, {P}_{ego}, T_{exo} = \Phi_{exo}({I}_{exo}),\\ 
+              \hat{I}_{ego} = \Phi_{ego}({S}_{ego}, {P}_{ego}, T_{exo}).
+              \]
             </p>
       </div>
     </div>
