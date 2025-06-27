@@ -191,10 +191,10 @@
           <!-- <div class="column is-centered has-text-centered">
             <img src="static/images/method.png" alt="method" width="700px"/>
           </div> -->
-          <figure class="image is-4by3" style="max-width: 100%; margin: auto;">
-            <img src="static/images/method.png" alt="method" style="max-width: 100%; height: auto;">
-          </figure>
-          <p class="content has-text-justified">
+          <div style="max-width: 100%; text-align: center; margin-bottom: 0;">
+            <img src="static/images/method.png" alt="method" style="max-width: 100%; height: auto; margin-bottom: 0;">
+          </div>
+          <p class="content has-text-justified" style="margin-top: 0;">
             EgoWorld consists of two stages: exocentric view observation \( \Phi_{exo}$ \) and egocentric view reconstruction \( \Phi_{ego} \).
             First, given a single exocentric image \( {I}_{exo} \in \mathbb{R}^{H \times W \times 3} \), \( \Phi_{exo} \) predicts a corresponding sparse egocentric RGB map \( {S}_{ego} \in \mathbb{R}^{H \times W \times 3} \), 3D egocentric hand pose \( {P}_{ego} \in \mathbb{R}^{N \times 3} \), and a textual description \( T_{exo} \).
             \( H \) and \( W \) indicates height and width of \( {I}_{exo} \), and \( N \) indicates the number of keypoints of the hand.
