@@ -188,20 +188,23 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-12">
         <h2 class="title is-3">Method</h2>
-          <div class="column is-centered has-text-centered">
+          <!-- <div class="column is-centered has-text-centered">
             <img src="static/images/method.png" alt="method" width="700px"/>
-          </div>
-		        <p class="content has-text-justified">
-              EgoWorld consists of two stages: exocentric view observation \( \Phi_{exo}$ \) and egocentric view reconstruction \( \Phi_{ego} \).
-              First, given a single exocentric image \( {I}_{exo} \in \mathbb{R}^{H \times W \times 3} \), \( \Phi_{exo} \) predicts a corresponding sparse egocentric RGB map \( {S}_{ego} \in \mathbb{R}^{H \times W \times 3} \), 3D egocentric hand pose \( {P}_{ego} \in \mathbb{R}^{N \times 3} \), and a textual description \( T_{exo} \).
-              \( H \) and \( W \) indicates height and width of \( {I}_{exo} \), and \( N \) indicates the number of keypoints of the hand.
-              Then, in \( \Phi_{ego} \), an egocentric image \( \hat{I}_{ego} \in \mathbb{R}^{H \times W \times 3} \) is generated based on the observations predicted in \( \Phi_{exo} \).
-              Therefore, EgoWorld is formulated as follows:
-              \[
-              {S}_{ego}, {P}_{ego}, T_{exo} = \Phi_{exo}({I}_{exo}),\\ 
-              \hat{I}_{ego} = \Phi_{ego}({S}_{ego}, {P}_{ego}, T_{exo}).
-              \]
-            </p>
+          </div> -->
+          <figure class="image is-4by3" style="max-width: 100%; margin: auto;">
+            <img src="static/images/method.png" alt="method" style="max-width: 100%; height: auto;">
+          </figure>
+          <p class="content has-text-justified">
+            EgoWorld consists of two stages: exocentric view observation \( \Phi_{exo}$ \) and egocentric view reconstruction \( \Phi_{ego} \).
+            First, given a single exocentric image \( {I}_{exo} \in \mathbb{R}^{H \times W \times 3} \), \( \Phi_{exo} \) predicts a corresponding sparse egocentric RGB map \( {S}_{ego} \in \mathbb{R}^{H \times W \times 3} \), 3D egocentric hand pose \( {P}_{ego} \in \mathbb{R}^{N \times 3} \), and a textual description \( T_{exo} \).
+            \( H \) and \( W \) indicates height and width of \( {I}_{exo} \), and \( N \) indicates the number of keypoints of the hand.
+            Then, in \( \Phi_{ego} \), an egocentric image \( \hat{I}_{ego} \in \mathbb{R}^{H \times W \times 3} \) is generated based on the observations predicted in \( \Phi_{exo} \).
+            Therefore, EgoWorld is formulated as follows:
+            \[
+            {S}_{ego}, {P}_{ego}, T_{exo} = \Phi_{exo}({I}_{exo}),\\ 
+            \hat{I}_{ego} = \Phi_{ego}({S}_{ego}, {P}_{ego}, T_{exo}).
+            \]
+          </p>
       </div>
     </div>
   </div>
