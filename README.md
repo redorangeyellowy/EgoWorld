@@ -22,3 +22,18 @@ We introduce **EgoWorld**, a novel two-stage framework that reconstructs an egoc
 [TBD] Code will be comming soon!
 
 [2025/06/22] We release arXiv and project page.
+
+## License and Citation <a name="license-and-citation"></a>
+
+All assets and code are under the [license](./LICENSE) unless specified otherwise.
+
+If this work is helpful for your research, please consider citing the following BibTeX entry.
+
+``` bibtex
+@article{park2025egoworld,
+  author    = {Park, Junho and Ye, Andrew Sangwoo and Kwon, Taein},
+  title     = {EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations},
+  journal   = {arXiv preprint arXiv:2506.17896},
+  year      = {2025},
+}
+```
