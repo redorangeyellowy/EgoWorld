@@ -223,6 +223,14 @@
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_itw.png" alt="exp_itw" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
+          <p class="content has-text-justified" style="margin-top: 1rem;">
+            We conduct experiments on EgoWorld with a state-of-the-art baseline model (e.g., CFLD) to evaluate in-the-wild generalization with unlabeled real-world examples.
+            We take in-the-wild images of people interacting with arbitrary objects using their hands. 
+            <b>Note that we rely solely on a single RGB image captured using a smartphone (iPhone 13 Pro) and apply our complete pipeline. No additional information beyond this single exocentric image is used.</b>
+            As shown in the figure, CFLD produces egocentric images that appear unnatural, overly biased toward training images in H2O, and are inconsistent with the new interaction scenarios. 
+            <b>In contrast, EgoWorld generates realistic, natural-looking egocentric views by effectively utilizing the sparse map, demonstrating strong generalization in unseen and real-world settings.</b>
+            These results highlight EgoWorld’s robustness in in-the-wild scenarios, and with further training on diverse datasets, we believe it holds strong potential for real-world applications.
+          </p>
       </div>
     </div>
   </div>
@@ -236,9 +244,22 @@
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_comp_h2o.png" alt="exp_comp_h2o" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
+          <p class="content has-text-justified" style="margin-top: 1rem;">
+            As illustrated in the figure, pix2pixHD produces egocentric images with noticeable noise, while pixelNeRF generates blurry outputs lacking fine details. 
+            pix2pixHD, which relies on label map-based image-to-image translation, appears unsuitable for solving the exocentric-to-egocentric view translation problem. 
+            Similarly, pixelNeRF is designed for novel view synthesis from multiple input views, making it less appropriate for the single-view to single-view translation task. 
+            In contrast, CFLD effectively reconstructs the hand pose, but fails to translate detailed information about objects and scenes, often resulting in unrealistic objects or entirely unrelated backgrounds. 
+            <b>In comparison, EgoWorld effectively leverages diverse information from the exocentric view, including pose maps, textual descriptions, and sparse maps, leading to robust performance even in challenging unseen scenarios involving complex elements like objects and scenes.</b>
+          </p>
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_comp_h2o_quan.png" alt="exp_comp_h2o_quan" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
+          <p class="content has-text-justified" style="margin-top: 1rem;">
+            As shown in the table, pix2pixHD and pixelNeRF show poor performance in all scenarios.
+            CFLD, which generates view-aware person image synthesis based on a given hand pose map, demonstrates stronger performance than pix2pixHD and pixelNeRf under view changes. 
+            However, its capability is mostly limited to translating hand regions, and it performs poorly when it comes to reconstructing unseen regions such as objects and scenes. 
+            <b>In contrast, EgoWorld successfully reconstructs information observed from the exocentric view in a manner that is coherent and natural in the egocentric perspective, and outperforms all unseen scenarios in all metrics compared to state-of-the-arts.</b>
+          </p>
       </div>
     </div>
   </div>
@@ -252,6 +273,11 @@
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_comp_taco.png" alt="exp_comp_taco" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
+          <p class="content has-text-justified" style="margin-top: 1rem;">
+            As illustrated in the figure, EgoWorld demonstrates strong generalization performance even on TACO, which contains a wide variety of objects and actions compared to H2O. 
+            Unlike CFLD, which struggles to reconstruct information beyond the hand region, <b>EgoWorld shows a remarkable ability to restore not only the hand but also the interacting objects and surrounding scene.</b>
+            These results confirm that EgoWorld is capable of delivering robust performance across diverse domains. 
+          </p>
       </div>
     </div>
   </div>
@@ -265,9 +291,13 @@
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_guide.png" alt="exp_guide" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
-          <!-- <p class="content has-text-justified">
-            TBD
-          </p> -->
+          <p class="content has-text-justified" style="margin-top: 1rem;">
+            EgoWorld reconstructs faithful egocentric images based on both the pose map and the textual description. 
+            As illustrated in the figure, the absence of text leads to incorrect reconstructions of unseen objects. 
+            In contrast, when text is available, the textual object information predicted from the exocentric image is effectively reflected in the egocentric view reconstruction, resulting in more plausible outputs. 
+            Additionally, the presence of hand pose information allows EgoWorld to produce hand configurations closer to the ground truth. 
+            These validate that EgoWorld performs best when leveraging both pose and textual observations. 
+          </p>
       </div>
     </div>
   </div>
@@ -281,9 +311,19 @@
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_recon.png" alt="exp_recon" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
-          <!-- <p class="content has-text-justified">
-            TBD
-          </p> -->
+          <p class="content has-text-justified" style="margin-top: 1rem;">
+            Since egocentric view reconstruction closely resembles the image completion task, we compare our method with state-of-the-art image completion backbones, such as Masked AutoEncoder (MAE), Mask-Aware Transformer (MAT), and Latent Diffusion Model (LDM). 
+            Specifically, MAE is specialized in mask-based image encoding, making it effective for filling missing pixel regions. 
+            MAT, a transformer-based model, excels at restoring large missing areas through long-range context modeling. 
+            LDM, serving as the baseline for EgoWorld, differs from the others in its ability to condition on diverse modalities such as text and pose. 
+            As shown in the figure, our LDM-based method reconstructs egocentric view images in a more natural and high-quality manner compared to other methods. 
+            Although the vanilla MAT model performs well in filling missing areas, it often struggles to maintain consistency with the surrounding content. 
+            For example, subtle differences in table color are noticeable. 
+            To address this, we develop a refined version of MAT that uses random patch masking and recovery. 
+            However, this approach tends to fail in preserving detailed local interactions, such as hand-object interaction. 
+            In contrast, our LDM-based method, which operates by adding and removing noise in latent space, achieves coherent restoration not only in local regions but also in preserving consistency with existing areas. 
+            Therefore, based on these results, we adopt LDM as the backbone for EgoWorld.
+          </p>
       </div>
     </div>
   </div>
@@ -297,9 +337,11 @@
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_egopose.png" alt="exp_egopose" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
-          <!-- <p class="content has-text-justified">
-            TBD
-          </p> -->
+          <p class="content has-text-justified" style="margin-top: 1rem;">
+            To validate the effectiveness of our newly proposed exocentric image-based 3D egocentric hand pose estimator, we conduct a qualitative analysis. 
+            As shown in the figure, given a single exocentric view image as input, our model predicts 3D hand poses that closely resemble the ground truth. 
+            This demonstrates that the estimator is highly useful in the exocentric view observation stage for calculating the translation matrix, as well as in the egocentric view reconstruction stage for initializing the hand pose map.
+          </p>
       </div>
     </div>
   </div>
@@ -309,13 +351,15 @@
   <div class="container is-max-widescreen">
     <div class="columns is-centered has-text-centered">
       <div class="column is-12">
-        <h2 class="title is-3">Incorrect Conditioning Modalities</h2>
+        <h2 class="title is-3">Incorrect Textual Description Guidance</h2>
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_incrt.png" alt="exp_incrt" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
-          <!-- <p class="content has-text-justified">
-            TBD
-          </p> -->
+          <p class="content has-text-justified" style="margin-top: 1rem;">
+            To evaluate the effect of textual description guidance of the egocentric view reconstruction, we intentionally provide an incorrect textual description that does not match the exocentric image. 
+            As shown in the figure, the object in the egocentric view is generated to match the object described in the description. 
+            From this result, we observe two key insights: (1) the final egocentric image can vary depending on the output of the VLM, highlighting the importance of the VLM’s performance; and (2) even when arbitrary exocentric images are fed, our model performed sufficient generalization to unseen scenarios. 
+          </p>
       </div>
     </div>
   </div>
@@ -329,9 +373,11 @@
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_consi.png" alt="exp_consi" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
-          <!-- <p class="content has-text-justified">
-            TBD
-          </p> -->
+          <p class="content has-text-justified" style="margin-top: 1rem;">
+            To evaluate the consistency of our generative model, we generated egocentric images multiple times under identical conditions. 
+            As shown in the figure, we present four outputs generated from the same exocentric image and corresponding sparse map, and our model consistently produces coherent egocentric images across runs. 
+            Despite the inherent variability in generative models, our method achieves stable and reliable exocentric-to-egocentric view translation, demonstrating its robustness and consistency.
+          </p>
       </div>
     </div>
   </div>
