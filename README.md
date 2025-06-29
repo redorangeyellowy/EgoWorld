@@ -31,9 +31,9 @@ If this work is helpful for your research, please consider citing the following 
 
 ``` bibtex
 @article{park2025egoworld,
-  author    = {Park, Junho and Ye, Andrew Sangwoo and Kwon, Taein},
-  title     = {EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations},
-  journal   = {arXiv preprint arXiv:2506.17896},
-  year      = {2025},
+  author  = {Park, Junho and Ye, Andrew Sangwoo and Kwon, Taein},
+  title   = {EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations},
+  journal = {arXiv preprint arXiv:2506.17896},
+  year    = {2025},
 }
 ```
