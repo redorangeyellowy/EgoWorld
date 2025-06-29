@@ -240,7 +240,7 @@
   <div class="container is-max-widescreen">
     <div class="columns is-centered has-text-centered">
       <div class="column is-12">
-        <h2 class="title is-3">Comparisons on H2O</h2>
+        <h2 class="title is-3">Comparisons on H2O Dataset</h2>
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_comp_h2o.png" alt="exp_comp_h2o" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
@@ -269,7 +269,7 @@
   <div class="container is-max-widescreen">
     <div class="columns is-centered has-text-centered">
       <div class="column is-12">
-        <h2 class="title is-3">Comparisons on TACO</h2>
+        <h2 class="title is-3">Comparisons on TACO Dataset</h2>
           <div style="width: 100%; text-align: center;">
             <img src="static/images/exp_comp_taco.png" alt="exp_comp_taco" style="max-width: 100%; height: auto; display: inline-block;">
           </div>
@@ -294,9 +294,9 @@
           <p class="content has-text-justified" style="margin-top: 1rem;">
             EgoWorld reconstructs faithful egocentric images based on both the pose map and the textual description. 
             As illustrated in the figure, the absence of text leads to incorrect reconstructions of unseen objects. 
-            In contrast, when text is available, the textual object information predicted from the exocentric image is effectively reflected in the egocentric view reconstruction, resulting in more plausible outputs. 
-            Additionally, the presence of hand pose information allows EgoWorld to produce hand configurations closer to the ground truth. 
-            These validate that EgoWorld performs best when leveraging both pose and textual observations. 
+            In contrast, <b>when text is available, the textual object information predicted from the exocentric image is effectively reflected in the egocentric view reconstruction, resulting in more plausible outputs. </b>
+            Additionally, <b>the presence of hand pose information allows EgoWorld to produce hand configurations closer to the ground truth. </b>
+            These validate that EgoWorld performs best when leveraging both pose and textual observations.
           </p>
       </div>
     </div>
@@ -321,7 +321,7 @@
             For example, subtle differences in table color are noticeable. 
             To address this, we develop a refined version of MAT that uses random patch masking and recovery. 
             However, this approach tends to fail in preserving detailed local interactions, such as hand-object interaction. 
-            In contrast, our LDM-based method, which operates by adding and removing noise in latent space, achieves coherent restoration not only in local regions but also in preserving consistency with existing areas. 
+            In contrast, <b>our LDM-based method, which operates by adding and removing noise in latent space, achieves coherent restoration not only in local regions but also in preserving consistency with existing areas. </b>
             Therefore, based on these results, we adopt LDM as the backbone for EgoWorld.
           </p>
       </div>
@@ -340,7 +340,7 @@
           <p class="content has-text-justified" style="margin-top: 1rem;">
             To validate the effectiveness of our newly proposed exocentric image-based 3D egocentric hand pose estimator, we conduct a qualitative analysis. 
             As shown in the figure, given a single exocentric view image as input, our model predicts 3D hand poses that closely resemble the ground truth. 
-            This demonstrates that the estimator is highly useful in the exocentric view observation stage for calculating the translation matrix, as well as in the egocentric view reconstruction stage for initializing the hand pose map.
+            This demonstrates that <b>the estimator is highly useful in the exocentric view observation stage for calculating the translation matrix, as well as in the egocentric view reconstruction stage for initializing the hand pose map.</b>
           </p>
       </div>
     </div>
@@ -358,7 +358,7 @@
           <p class="content has-text-justified" style="margin-top: 1rem;">
             To evaluate the effect of textual description guidance of the egocentric view reconstruction, we intentionally provide an incorrect textual description that does not match the exocentric image. 
             As shown in the figure, the object in the egocentric view is generated to match the object described in the description. 
-            From this result, we observe two key insights: (1) the final egocentric image can vary depending on the output of the VLM, highlighting the importance of the VLM’s performance; and (2) even when arbitrary exocentric images are fed, our model performed sufficient generalization to unseen scenarios. 
+            From this result, we observe two key insights: <b>(1) the final egocentric image can vary depending on the output of the VLM, highlighting the importance of the VLM’s performance;</b> and <b>(2) even when arbitrary exocentric images are fed, our model performed sufficient generalization to unseen scenarios.</b> 
           </p>
       </div>
     </div>
@@ -376,7 +376,7 @@
           <p class="content has-text-justified" style="margin-top: 1rem;">
             To evaluate the consistency of our generative model, we generated egocentric images multiple times under identical conditions. 
             As shown in the figure, we present four outputs generated from the same exocentric image and corresponding sparse map, and our model consistently produces coherent egocentric images across runs. 
-            Despite the inherent variability in generative models, our method achieves stable and reliable exocentric-to-egocentric view translation, demonstrating its robustness and consistency.
+            Despite the inherent variability in generative models, <b>our method achieves stable and reliable exocentric-to-egocentric view translation, demonstrating its robustness and consistency.</b>
           </p>
       </div>
     </div>
