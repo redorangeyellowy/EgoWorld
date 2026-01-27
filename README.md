@@ -1,4 +1,4 @@
-# EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations
+# [ICLR 2026] EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations
 [![arXiv](https://img.shields.io/badge/arXiv-2506.17896-b31b1b.svg)](https://arxiv.org/abs/2506.17896)
 [![Project Page](https://img.shields.io/badge/Project-Page-Green)](https://redorangeyellowy.github.io/EgoWorld/)
 
@@ -19,9 +19,9 @@ We introduce **EgoWorld**, a novel two-stage framework that reconstructs an egoc
 
 ## What's New<a name="news"></a>
 
-[TBD] Code will be comming soon!
+[2026/01/26] :rocket: Our paper is accepted by ICLR 2026! Code will be comming soon!
 
-[2025/06/22] We release arXiv and project page.
+[2025/06/22] :star: We release arXiv and project page.
 
 ## License and Citation <a name="license-and-citation"></a>
 
