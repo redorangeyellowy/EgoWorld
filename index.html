@@ -1,437 +1,461 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta property="og:title" content="EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations"/>
-    <meta property="og:url" content="https://redorangeyellowy.github.io/EgoWorld/"/>
-    <!-- <meta property="og:image" content="static/images/og_tag_header_image.jpg" /> -->
-    <meta property="og:image:width" content="1200"/>
-    <meta property="og:image:height" content="630"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta property="og:title" content="EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations">
+  <meta property="og:description" content="A two-stage framework that reconstructs egocentric views from a single exocentric image using sparse geometry, 3D hand pose, and textual guidance.">
+  <meta property="og:url" content="https://redorangeyellowy.github.io/EgoWorld/">
+  <meta property="og:image" content="static/images/teaser.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
-    <title>EgoWorld</title>
+  <title>EgoWorld</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-    rel="stylesheet">
-    <!-- <link rel="icon" href="static/images/icon.jpg"> -->
+  <link rel="icon" href="static/images/teaser.png">
 
-    <link rel="stylesheet" href="static/css/bulma.min.css">
-    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-    <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/spoqa-han-sans-neo.css">
+  <link rel="stylesheet" href="static/css/index.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-    <script defer src="static/js/fontawesome.all.min.js"></script>
-    <script src="static/js/bulma-carousel.min.js"></script>
-    <script src="static/js/bulma-slider.min.js"></script>
-    <script src="static/js/index.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-
-
-<section class="publication-header">
-  <div class="hero-body">
-    <div class="container is-max-widescreen">
-      <!-- <div class="columns is-centered"> -->
-        <div class="column is-12 has-text-centered">
-          <h1 class="title is-1 publication-title">EgoWorld:<br>Translating Exocentric View to Egocentric View<br>using Rich Exocentric Observations</h1>
-          <h1 class="title is-3">ICLR 2026</h1>
-        </div>
+  <nav class="site-nav">
+    <div class="container is-max-desktop nav-inner">
+      <a class="site-brand" href="#overview">EgoWorld</a>
+      <div class="nav-links">
+        <a class="nav-link" href="#overview">Overview</a>
+        <a class="nav-link" href="#abstract">Abstract</a>
+        <a class="nav-link" href="#method">Method</a>
+        <a class="nav-link" href="#results">Results</a>
+        <a class="nav-link" href="#analysis">Analysis</a>
+        <a class="nav-link" href="#bibtex">BibTeX</a>
+      </div>
     </div>
-  </div>   
-</section>
+  </nav>
 
-<section class="publication-author-block">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-12 has-text-centered">
-		      <div class="is-size-3 publication-authors">
+  <main>
+    <section class="publication-hero" id="overview">
+      <div class="container is-max-desktop">
+        <p class="publication-venue">ICLR 2026</p>
+        <div class="publication-title-highlight" data-title-highlight>
+          <div class="publication-title-effect-wrapper" data-title-highlight-effect aria-hidden="true">
+            <div class="publication-title-effect"></div>
           </div>
-          
-          <div class="is-size-3 publication-authors">
-            <!-- span class="author-block"> </span> 
-            <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+          <h1 class="publication-title" data-title-highlight-text>EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations</h1>
+        </div>
+
+        <div class="publication-authors">
+          <span class="author-block"><a href="https://redorangeyellowy.github.io/" target="_blank" rel="noopener noreferrer">Junho Park</a><sup>1</sup>,</span>
+          <span class="author-block"><a href="https://www.linkedin.com/in/andrew-sangwoo-ye-97a175199/" target="_blank" rel="noopener noreferrer">Andrew Sangwoo Ye</a><sup>2</sup>,</span>
+          <span class="author-block"><a href="https://taeinkwon.com/" target="_blank" rel="noopener noreferrer">Taein Kwon</a><sup>3&#8224;</sup></span>
+        </div>
+
+        <div class="publication-affiliations">
+          <span class="affiliation-block"><sup>1</sup>AI Lab, LG Electronics</span>
+          <span class="affiliation-block"><sup>2</sup>KAIST</span>
+          <span class="affiliation-block"><sup>3</sup>Visual Geometry Group, University of Oxford</span>
+        </div>
+        <p class="publication-note">&#8224; Corresponding author</p>
+
+        <div class="publication-links">
+          <a href="https://arxiv.org/abs/2506.17896" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn-arxiv">
+            <i class="ai ai-arxiv"></i>
+            <span>arXiv</span>
+          </a>
+          <a href="https://github.com/redorangeyellowy/EgoWorld" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn-code">
+            <i class="fab fa-github"></i>
+            <span>Code</span>
+          </a>
+          <a href="#bibtex" class="pub-btn pub-btn-paper">
+            <i class="fas fa-quote-right"></i>
+            <span>Citation</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section teaser-section">
+      <div class="container is-max-desktop">
+        <p class="tldr">
+          <strong>TL;DR.</strong> EgoWorld reconstructs a first-person view from a single third-person image by combining sparse geometry, predicted 3D egocentric hand pose, and textual scene understanding in a two-stage generation pipeline.
+        </p>
+
+        <figure class="paper-figure">
+          <img src="static/images/teaser.png" alt="EgoWorld teaser figure showing exocentric-to-egocentric translation examples">
+          <figcaption>
+            EgoWorld translates a single exocentric view into an egocentric one by leveraging complementary observations predicted from the source image.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="abstract">
+      <div class="container is-max-desktop">
+        <div class="text-block">
+          <h2 class="section-title">Abstract</h2>
+          <p>
+            Egocentric vision is essential for both human and machine visual understanding, particularly in capturing the detailed hand-object interactions needed for manipulation tasks. Translating third-person views into first-person views significantly benefits augmented reality, virtual reality, and robotics applications. However, existing exocentric-to-egocentric translation methods depend heavily on 2D cues, synchronized multi-view settings, or unrealistic assumptions such as having an initial egocentric frame and relative camera poses available at inference time.
+          </p>
+          <p>
+            EgoWorld addresses these limitations with a two-stage framework that reconstructs an egocentric image from rich exocentric observations, including projected point clouds, 3D hand poses, and textual descriptions. The system first predicts observation signals from a single exocentric image, then uses them to guide diffusion-based inpainting for dense and semantically coherent egocentric view synthesis. Across the H2O and TACO datasets, EgoWorld achieves state-of-the-art performance and shows strong generalization to new objects, actions, scenes, subjects, and real-world captures.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="container is-max-desktop">
+        <div class="section-header">
+          <h2 class="section-title">Method Overview</h2>
+          <p class="section-subtitle">
+            EgoWorld separates observation prediction from final image synthesis so the output remains grounded in geometry and semantics.
+          </p>
+        </div>
+
+        <div class="method-layout">
+          <figure class="paper-figure method-figure">
+            <img src="static/images/method.png" alt="EgoWorld method overview diagram">
+            <figcaption>
+              Stage 1 predicts structured egocentric observations from the exocentric image, and stage 2 reconstructs the final egocentric view from those observations.
+            </figcaption>
+          </figure>
+
+          <div class="method-flow" aria-label="Two-stage method flow">
+            <article class="stage-block">
+              <p class="card-label">Stage 1</p>
+              <h3>Exocentric observation \( \Phi_{exo} \)</h3>
+              <p>
+                Given a single exocentric image \( I_{exo} \), EgoWorld predicts a sparse egocentric RGB map \( S_{ego} \), a 3D egocentric hand pose \( P_{ego} \), and a textual description \( T_{exo} \).
+              </p>
+            </article>
+
+            <div class="flow-arrow" aria-hidden="true">
+              <svg class="flow-arrow-svg" viewBox="0 0 120 48" preserveAspectRatio="none">
+                <defs>
+                  <clipPath id="flow-arrow-clip">
+                    <path d="M0 14 H78 V0 L120 24 L78 48 V34 H0 Z"></path>
+                  </clipPath>
+                  <linearGradient id="flow-arrow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#2563eb" stop-opacity="0"></stop>
+                    <stop offset="12%" stop-color="#2563eb" stop-opacity="0.03"></stop>
+                    <stop offset="24%" stop-color="#2563eb" stop-opacity="0.1"></stop>
+                    <stop offset="36%" stop-color="#2563eb" stop-opacity="0.2"></stop>
+                    <stop offset="48%" stop-color="#2563eb" stop-opacity="0.34"></stop>
+                    <stop offset="52%" stop-color="#2563eb" stop-opacity="0.42"></stop>
+                    <stop offset="64%" stop-color="#2563eb" stop-opacity="0.34"></stop>
+                    <stop offset="76%" stop-color="#2563eb" stop-opacity="0.2"></stop>
+                    <stop offset="88%" stop-color="#2563eb" stop-opacity="0.1"></stop>
+                    <stop offset="96%" stop-color="#2563eb" stop-opacity="0.03"></stop>
+                    <stop offset="100%" stop-color="#2563eb" stop-opacity="0"></stop>
+                  </linearGradient>
+                </defs>
+                <path class="flow-arrow-base" d="M0 14 H78 V0 L120 24 L78 48 V34 H0 Z"></path>
+                <g clip-path="url(#flow-arrow-clip)">
+                  <rect class="flow-arrow-sweep" x="-160" y="0" width="160" height="48" fill="url(#flow-arrow-gradient)">
+                    <animate attributeName="x" from="-160" to="120" dur="2.2s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g>
+              </svg>
+            </div>
+
+            <article class="stage-block">
+              <p class="card-label">Stage 2</p>
+              <h3>Egocentric reconstruction \( \Phi_{ego} \)</h3>
+              <p>
+                The sparse map, predicted pose, and language description are fused to generate the final egocentric image \( \hat{I}_{ego} \), allowing recovery of unseen object and scene content.
+              </p>
+            </article>
           </div>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><a href="https://redorangeyellowy.github.io/" target="_blank">Junho Park</a><sup>1</sup>,</span>
-            <span class="author-block"><a href="https://www.linkedin.com/in/andrew-sangwoo-ye-97a175199/" target="_blank">Andrew Sangwoo Ye</a><sup>2</sup>,</span>
-            <span class="author-block"><a href="https://taeinkwon.com/" target="_blank">Taein Kwon</a><sup>3†</sup></span>
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>AI Lab, LG Electronics,</span>
-            <span class="author-block"><sup>2</sup>KAIST,</span>
-            <span class="author-block"><sup>3</sup>Visual Geometry Group, University of Oxford</span>
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">(† : Corresponding author)</span>
-          </div>
-
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2506.17896" target="_blank" 
-                class="external-link button is-normal is-rounded is-dark">
-                <!-- <a target="_blank" class="external-link button is-normal is-rounded is-dark"> -->
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-
-              <span class="link-block">
-                <a href="https://github.com/redorangeyellowy/EgoWorld" target="_blank"
-                class="external-link button is-normal is-rounded is-dark">
-                <!-- <a target="_blank" class="external-link button is-normal is-rounded is-dark"> -->
-                <span class="icon">
-                  <i class="fab fa-github"></i>
-                </span>
-                <span>Code</span>
-              </a>
-              </span>
-
-              <!-- <span class="link-block">
-                <a href="https://redorangeyellowy.github.io/EgoWorld/" target="_blank"
-                class="external-link button is-normal is-rounded is-dark">
-                <span class="icon">
-                  <i class="fab fa-youtube"></i>
-                </span>
-                <span>Video</span>
-              </a>
-              </span> -->
-              
-             <!--span class="link-block">
-              <a href=""  target="_blank"
-                 class="external-link button is-normal is-rounded">
-                <span class="icon">
-                    <i class="fas fa-infinity"></i>
-                </span>
-                <span>Colab</span>
-              </a>
-             </span -->
-            
-            <!-- <span class="link-block">
-              <a href="https://huggingface.co/spaces/AttendAndExcite/Attend-and-Excite"  target="_blank"
-                 class="external-link button is-normal is-rounded">
-                <span class="icon">
-                    <i class="fas fa-laptop"></i>
-                </span>
-                <span>Demo</span>
-              </a>
-             </span> -->
-           
+          <div class="formula-section">
+            <p class="card-label">Formulation</p>
+            <div class="formula-box">
+              \[
+              S_{ego}, P_{ego}, T_{exo} = \Phi_{exo}(I_{exo}),\\
+              \hat{I}_{ego} = \Phi_{ego}(S_{ego}, P_{ego}, T_{exo}).
+              \]
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- <section class="hero is-small"> -->
-<section class="hero teaser">
-  <!-- <div class="container is-max-desktop"> -->
-  <div class="container is-max-widescreen">
-    <div class="hero-body">
-      <div class="container">
-      <div class="item">
-      <div class="column is-centered has-text-centered">
-        <img src="static/images/teaser.png" alt="pipeline"/>
-      <h2 class="subtitle">
-        EgoWorld translates a single exocentric view into an egocentric view. 
-        By leveraging rich multimodal exocentric observations, such as projected point clouds, 3D hand poses, and textual descriptions, EgoWorld is able to generate high-quality egocentric views, even in unseen scenarios. 
-        Each observed modality provides complementary information that contributes to the accurate and realistic reconstruction of the egocentric view.
-      </h2>
-	  </div>
-    </div>
-  </div>
-  </div>
-  </div>
-</section>
-
-<section class="section hero is-light">
-  <!-- <div class="container is-max-desktop"> -->
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <!-- <div class="column is-four-fifths"> -->
-      <div class="column is-12">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Egocentric vision is essential for both human and machine visual understanding, particularly in capturing the detailed hand-object interactions needed for manipulation tasks. 
-            Translating third-person views into first-person views significantly benefits augmented reality (AR), virtual reality (VR) and robotics applications. However, current exocentric-to-egocentric translation methods are limited by their dependence on 2D cues, synchronized multi-view settings, and unrealistic assumptions such as necessity of initial egocentric frame and relative camera poses during inference.
-            To overcome these challenges, we introduce EgoWorld, a novel two-stage framework that reconstructs an egocentric view from rich exocentric observations, including projected point clouds, 3D hand poses, and textual descriptions. Our approach reconstructs a point cloud from estimated exocentric depth maps, reprojects it into the egocentric perspective, and then applies diffusion-based inpainting to produce dense, semantically coherent egocentric images.
-            Evaluated on the H2O and TACO datasets, EgoWorld achieves state-of-the-art performance and demonstrates robust generalization to new objects, actions, scenes, and subjects. 
-            Moreover, EgoWorld shows promising results even on unlabeled real-world examples.
+    <section class="section results-section" id="results">
+      <div class="container is-max-desktop">
+        <div class="section-header">
+          <h2 class="section-title">Core Results</h2>
+          <p class="section-subtitle">
+            EgoWorld consistently reconstructs more plausible first-person views than prior methods, especially beyond the hand region.
           </p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="section hero">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-12">
-        <h2 class="title is-3">Method</h2>
-          <!-- <div class="column is-centered has-text-centered">
-            <img src="static/images/method.png" alt="method" width="700px"/>
-          </div> -->
-          <!-- <div style="max-width: 100%; text-align: center; margin-bottom: 0;">
-            <img src="static/images/method.png" alt="method" style="max-width: 100%; height: auto; margin-bottom: 0;">
-          </div> -->
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/method.png" alt="method" style="max-width: 100%; height: auto; display: inline-block;">
+        <article class="result-block">
+          <h3>Real-World Generalization</h3>
+          <div class="media-frame">
+            <img src="static/images/exp_itw.png" alt="Real-world generalization examples">
           </div>
-          <!-- <p class="content has-text-justified" style="margin-top: 0;"> -->
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            EgoWorld consists of two stages: exocentric view observation \( \Phi_{exo}$ \) and egocentric view reconstruction \( \Phi_{ego} \).
-            First, given a single exocentric image \( {I}_{exo} \in \mathbb{R}^{H \times W \times 3} \), \( \Phi_{exo} \) predicts a corresponding sparse egocentric RGB map \( {S}_{ego} \in \mathbb{R}^{H \times W \times 3} \), 3D egocentric hand pose \( {P}_{ego} \in \mathbb{R}^{N \times 3} \), and a textual description \( T_{exo} \).
-            \( H \) and \( W \) indicates height and width of \( {I}_{exo} \), and \( N \) indicates the number of keypoints of the hand.
-            Then, in \( \Phi_{ego} \), an egocentric image \( \hat{I}_{ego} \in \mathbb{R}^{H \times W \times 3} \) is generated based on the observations predicted in \( \Phi_{exo} \).
-            Therefore, EgoWorld is formulated as follows:
-            \[
-            {S}_{ego}, {P}_{ego}, T_{exo} = \Phi_{exo}({I}_{exo}),\\ 
-            \hat{I}_{ego} = \Phi_{ego}({S}_{ego}, {P}_{ego}, T_{exo}).
-            \]
+          <p>
+            Using only a single smartphone image as input, EgoWorld produces realistic egocentric views in unseen real-world settings. Compared with CFLD, the generated images stay more natural and better aligned with the actual interaction scenario.
           </p>
-      </div>
-    </div>
-  </div>
-</section> 
+        </article>
 
-<section class="section hero is-light">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-12">
-        <h2 class="title is-3">Real-World Generalization</h2>
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/exp_itw.png" alt="exp_itw" style="max-width: 100%; height: auto; display: inline-block;">
+        <article class="result-block">
+          <h3>Comparisons on H2O Dataset</h3>
+          <div class="media-frame">
+            <img src="static/images/exp_comp_h2o.png" alt="Qualitative comparisons on the H2O dataset">
           </div>
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            We conduct experiments on EgoWorld with a state-of-the-art baseline model (e.g., CFLD) to evaluate in-the-wild generalization with unlabeled real-world examples.
-            We take in-the-wild images of people interacting with arbitrary objects using their hands. 
-            <b>Note that we rely solely on a single RGB image captured using a smartphone (iPhone 13 Pro) and apply our complete pipeline. No additional information beyond this single exocentric image is used.</b>
-            As shown in the figure, CFLD produces egocentric images that appear unnatural, overly biased toward training images in H2O, and are inconsistent with the new interaction scenarios. 
-            <b>In contrast, EgoWorld generates realistic, natural-looking egocentric views by effectively utilizing the sparse map, demonstrating strong generalization in unseen and real-world settings.</b>
-            These results highlight EgoWorld’s robustness in in-the-wild scenarios, and with further training on diverse datasets, we believe it holds strong potential for real-world applications.
-          </p>
-      </div>
-    </div>
-  </div>
-</section> 
 
-<section class="section hero">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-12">
-        <h2 class="title is-3">Comparisons on H2O Dataset</h2>
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/exp_comp_h2o.png" alt="exp_comp_h2o" style="max-width: 100%; height: auto; display: inline-block;">
+          <div class="comparison-table-block">
+            <p class="comparison-table-caption">
+              <strong>Table 1.</strong> Comparisons with state-of-the-arts on unseen scenarios in H2O. Compared to prior methods, EgoWorld performs best across unseen objects, actions, scenes, and subjects on all reported metrics.
+            </p>
+
+            <div class="comparison-table-scroll">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Methods</th>
+                    <th colspan="4">Unseen Objects</th>
+                    <th colspan="4">Unseen Actions</th>
+                    <th colspan="4">Unseen Scenes</th>
+                    <th colspan="4">Unseen Subjects</th>
+                  </tr>
+                  <tr>
+                    <th>FID&#8595;</th>
+                    <th>PSNR&#8593;</th>
+                    <th>SSIM&#8593;</th>
+                    <th>LPIPS&#8595;</th>
+                    <th>FID&#8595;</th>
+                    <th>PSNR&#8593;</th>
+                    <th>SSIM&#8593;</th>
+                    <th>LPIPS&#8595;</th>
+                    <th>FID&#8595;</th>
+                    <th>PSNR&#8593;</th>
+                    <th>SSIM&#8593;</th>
+                    <th>LPIPS&#8595;</th>
+                    <th>FID&#8595;</th>
+                    <th>PSNR&#8593;</th>
+                    <th>SSIM&#8593;</th>
+                    <th>LPIPS&#8595;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">pix2pixHD [44]</th>
+                    <td>436.25</td>
+                    <td>25.012</td>
+                    <td>0.2993</td>
+                    <td>0.6057</td>
+                    <td>211.10</td>
+                    <td>24.420</td>
+                    <td>0.2854</td>
+                    <td>0.6127</td>
+                    <td>490.32</td>
+                    <td>18.567</td>
+                    <td>0.2425</td>
+                    <td>0.7290</td>
+                    <td>452.13</td>
+                    <td>18.172</td>
+                    <td>0.3310</td>
+                    <td>0.7234</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">pixelNeRF [45]</th>
+                    <td>498.23</td>
+                    <td>26.557</td>
+                    <td>0.3887</td>
+                    <td>0.5372</td>
+                    <td>251.76</td>
+                    <td>27.061</td>
+                    <td>0.3950</td>
+                    <td>0.8159</td>
+                    <td>489.13</td>
+                    <td>26.537</td>
+                    <td>0.2574</td>
+                    <td>0.7143</td>
+                    <td>493.13</td>
+                    <td>22.636</td>
+                    <td>0.4135</td>
+                    <td>0.6838</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">CFLD [46]</th>
+                    <td>59.615</td>
+                    <td>25.922</td>
+                    <td>0.4307</td>
+                    <td>0.4539</td>
+                    <td>50.953</td>
+                    <td>28.529</td>
+                    <td>0.4324</td>
+                    <td>0.4593</td>
+                    <td>118.10</td>
+                    <td>29.030</td>
+                    <td>0.3696</td>
+                    <td>0.6841</td>
+                    <td>129.30</td>
+                    <td>21.050</td>
+                    <td>0.4001</td>
+                    <td>0.6269</td>
+                  </tr>
+                  <tr class="is-ours">
+                    <th scope="row">EgoWorld (Ours)</th>
+                    <td>41.334</td>
+                    <td>31.171</td>
+                    <td>0.4814</td>
+                    <td>0.3476</td>
+                    <td>33.284</td>
+                    <td>31.620</td>
+                    <td>0.4566</td>
+                    <td>0.3780</td>
+                    <td>90.893</td>
+                    <td>31.004</td>
+                    <td>0.4096</td>
+                    <td>0.6519</td>
+                    <td>96.429</td>
+                    <td>24.851</td>
+                    <td>0.4605</td>
+                    <td>0.6188</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            As illustrated in the figure, pix2pixHD produces egocentric images with noticeable noise, while pixelNeRF generates blurry outputs lacking fine details. 
-            pix2pixHD, which relies on label map-based image-to-image translation, appears unsuitable for solving the exocentric-to-egocentric view translation problem. 
-            Similarly, pixelNeRF is designed for novel view synthesis from multiple input views, making it less appropriate for the single-view to single-view translation task. 
-            In contrast, CFLD effectively reconstructs the hand pose, but fails to translate detailed information about objects and scenes, often resulting in unrealistic objects or entirely unrelated backgrounds. 
-            <b>In comparison, EgoWorld effectively leverages diverse information from the exocentric view, including pose maps, textual descriptions, and sparse maps, leading to robust performance even in challenging unseen scenarios involving complex elements like objects and scenes.</b>
+          <p>
+            On H2O, prior approaches either add heavy artifacts, blur away details, or only reconstruct the hand region. EgoWorld better transfers object and scene information from the exocentric observation space, yielding stronger realism and quantitative performance across unseen scenarios.
           </p>
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/exp_comp_h2o_quan.png" alt="exp_comp_h2o_quan" style="max-width: 100%; height: auto; display: inline-block;">
+        </article>
+
+        <article class="result-block">
+          <h3>Comparisons on TACO Dataset</h3>
+          <div class="media-frame">
+            <img src="static/images/exp_comp_taco.png" alt="Comparisons on the TACO dataset">
           </div>
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            As shown in the table, pix2pixHD and pixelNeRF show poor performance in all scenarios.
-            CFLD, which generates view-aware person image synthesis based on a given hand pose map, demonstrates stronger performance than pix2pixHD and pixelNeRf under view changes. 
-            However, its capability is mostly limited to translating hand regions, and it performs poorly when it comes to reconstructing unseen regions such as objects and scenes. 
-            <b>In contrast, EgoWorld successfully reconstructs information observed from the exocentric view in a manner that is coherent and natural in the egocentric perspective, and outperforms all unseen scenarios in all metrics compared to state-of-the-arts.</b>
+          <p>
+            TACO covers broader action and object diversity than H2O. EgoWorld still restores both the hand and surrounding scene context more faithfully than CFLD, indicating that the improvement is robust across datasets.
           </p>
+        </article>
       </div>
-    </div>
-  </div>
-</section> 
+    </section>
 
-<section class="section hero is-light">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-12">
-        <h2 class="title is-3">Comparisons on TACO Dataset</h2>
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/exp_comp_taco.png" alt="exp_comp_taco" style="max-width: 100%; height: auto; display: inline-block;">
+    <section class="section" id="analysis">
+      <div class="container is-max-desktop">
+        <div class="section-header">
+          <h2 class="section-title">Analysis</h2>
+          <p class="section-subtitle">
+            The ablations show that EgoWorld benefits from multimodal conditioning, a diffusion-based completion backbone, and stable exocentric-to-egocentric pose prediction.
+          </p>
+        </div>
+
+        <div class="analysis-carousel" data-analysis-carousel>
+          <button class="analysis-nav analysis-nav--prev" type="button" aria-label="Previous analysis" data-analysis-prev>
+            <span aria-hidden="true">&#8249;</span>
+          </button>
+
+          <div class="analysis-viewport">
+            <div class="analysis-track" data-analysis-track>
+              <article class="analysis-slide">
+                <div class="analysis-slide-copy">
+                  <p class="card-label">01</p>
+                  <h3>Effect of Conditioning Modalities</h3>
+                  <p>
+                    Text improves unseen object reconstruction, while pose cues improve hand fidelity. EgoWorld performs best when both signals are used together.
+                  </p>
+                </div>
+                <div class="media-frame">
+                  <img src="static/images/exp_guide.png" alt="Effect of conditioning modalities">
+                </div>
+              </article>
+
+              <article class="analysis-slide">
+                <div class="analysis-slide-copy">
+                  <p class="card-label">02</p>
+                  <h3>Backbone of Image Completion</h3>
+                  <p>
+                    Compared with MAE and MAT variants, the latent diffusion backbone preserves both local hand-object details and overall scene consistency more effectively.
+                  </p>
+                </div>
+                <div class="media-frame">
+                  <img src="static/images/exp_recon.png" alt="Backbone comparison for image completion">
+                </div>
+              </article>
+
+              <article class="analysis-slide">
+                <div class="analysis-slide-copy">
+                  <p class="card-label">03</p>
+                  <h3>3D Egocentric Hand Pose Estimation from Exocentric View</h3>
+                  <p>
+                    The predicted egocentric hand pose stays close to the target interaction and provides useful structure for both geometric alignment and final generation.
+                  </p>
+                </div>
+                <div class="media-frame">
+                  <img src="static/images/exp_egopose.png" alt="3D egocentric hand pose estimation from exocentric view">
+                </div>
+              </article>
+
+              <article class="analysis-slide">
+                <div class="analysis-slide-copy">
+                  <p class="card-label">04</p>
+                  <h3>Incorrect Textual Description Guidance</h3>
+                  <p>
+                    When the language description is intentionally wrong, the generated object changes accordingly, showing that the model genuinely uses textual semantics during synthesis.
+                  </p>
+                </div>
+                <div class="media-frame">
+                  <img src="static/images/exp_incrt.png" alt="Effect of incorrect textual description guidance">
+                </div>
+              </article>
+
+              <article class="analysis-slide">
+                <div class="analysis-slide-copy">
+                  <p class="card-label">05</p>
+                  <h3>Generation Consistency</h3>
+                  <p>
+                    Even though diffusion models are stochastic, repeated generations from the same exocentric input remain visually coherent, suggesting that EgoWorld is stable enough for practical use.
+                  </p>
+                </div>
+                <div class="media-frame">
+                  <img src="static/images/exp_consi.png" alt="Generation consistency results">
+                </div>
+              </article>
+            </div>
           </div>
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            As illustrated in the figure, EgoWorld demonstrates strong generalization performance even on TACO, which contains a wide variety of objects and actions compared to H2O. 
-            Unlike CFLD, which struggles to reconstruct information beyond the hand region, <b>EgoWorld shows a remarkable ability to restore not only the hand but also the interacting objects and surrounding scene.</b>
-            These results confirm that EgoWorld is capable of delivering robust performance across diverse domains. 
-          </p>
-      </div>
-    </div>
-  </div>
-</section> 
 
-<section class="section hero">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-12">
-        <h2 class="title is-3">Effect of Conditioning Modalities</h2>
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/exp_guide.png" alt="exp_guide" style="max-width: 100%; height: auto; display: inline-block;">
+          <button class="analysis-nav analysis-nav--next" type="button" aria-label="Next analysis" data-analysis-next>
+            <span aria-hidden="true">&#8250;</span>
+          </button>
+        </div>
+
+        <div class="analysis-meta">
+          <p class="analysis-counter" data-analysis-counter>1 / 5</p>
+          <div class="analysis-dots" data-analysis-dots></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="bibtex">
+      <div class="container is-max-desktop">
+        <div class="bibtex-block">
+          <div class="bibtex-header">
+            <h2 class="section-title">BibTeX</h2>
+            <button class="copy-button" type="button" data-copy-target="bibtex-code">Copy</button>
           </div>
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            EgoWorld reconstructs faithful egocentric images based on both the pose map and the textual description. 
-            As illustrated in the figure, the absence of text leads to incorrect reconstructions of unseen objects. 
-            In contrast, <b>when text is available, the textual object information predicted from the exocentric image is effectively reflected in the egocentric view reconstruction, resulting in more plausible outputs. </b>
-            Additionally, <b>the presence of hand pose information allows EgoWorld to produce hand configurations closer to the ground truth. </b>
-            These validate that EgoWorld performs best when leveraging both pose and textual observations.
-          </p>
-      </div>
-    </div>
-  </div>
-</section> 
-
-<section class="section hero is-light">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-12">
-        <h2 class="title is-3">Backbone of Image Completion</h2>
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/exp_recon.png" alt="exp_recon" style="max-width: 100%; height: auto; display: inline-block;">
-          </div>
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            Since egocentric view reconstruction closely resembles the image completion task, we compare our method with state-of-the-art image completion backbones, such as Masked AutoEncoder (MAE), Mask-Aware Transformer (MAT), and Latent Diffusion Model (LDM). 
-            Specifically, MAE is specialized in mask-based image encoding, making it effective for filling missing pixel regions. 
-            MAT, a transformer-based model, excels at restoring large missing areas through long-range context modeling. 
-            LDM, serving as the baseline for EgoWorld, differs from the others in its ability to condition on diverse modalities such as text and pose. 
-            As shown in the figure, our LDM-based method reconstructs egocentric view images in a more natural and high-quality manner compared to other methods. 
-            Although the vanilla MAT model performs well in filling missing areas, it often struggles to maintain consistency with the surrounding content. 
-            For example, subtle differences in table color are noticeable. 
-            To address this, we develop a refined version of MAT that uses random patch masking and recovery. 
-            However, this approach tends to fail in preserving detailed local interactions, such as hand-object interaction. 
-            In contrast, <b>our LDM-based method, which operates by adding and removing noise in latent space, achieves coherent restoration not only in local regions but also in preserving consistency with existing areas. </b>
-            Therefore, based on these results, we adopt LDM as the backbone for EgoWorld.
-          </p>
-      </div>
-    </div>
-  </div>
-</section> 
-
-<section class="section hero">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-12">
-        <h2 class="title is-3">3D Egocentric Hand Pose Estimation from Exocentric View</h2>
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/exp_egopose.png" alt="exp_egopose" style="max-width: 100%; height: auto; display: inline-block;">
-          </div>
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            To validate the effectiveness of our newly proposed exocentric image-based 3D egocentric hand pose estimator, we conduct a qualitative analysis. 
-            As shown in the figure, given a single exocentric view image as input, our model predicts 3D hand poses that closely resemble the ground truth. 
-            This demonstrates that <b>the estimator is highly useful in the exocentric view observation stage for calculating the translation matrix, as well as in the egocentric view reconstruction stage for initializing the hand pose map.</b>
-          </p>
-      </div>
-    </div>
-  </div>
-</section> 
-
-<section class="section hero is-light">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-12">
-        <h2 class="title is-3">Incorrect Textual Description Guidance</h2>
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/exp_incrt.png" alt="exp_incrt" style="max-width: 100%; height: auto; display: inline-block;">
-          </div>
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            To evaluate the effect of textual description guidance of the egocentric view reconstruction, we intentionally provide an incorrect textual description that does not match the exocentric image. 
-            As shown in the figure, the object in the egocentric view is generated to match the object described in the description. 
-            From this result, we observe two key insights: <b>(1) the final egocentric image can vary depending on the output of the VLM, highlighting the importance of the VLM’s performance;</b> and <b>(2) even when arbitrary exocentric images are fed, our model performed sufficient generalization to unseen scenarios.</b> 
-          </p>
-      </div>
-    </div>
-  </div>
-</section> 
-
-<section class="section hero">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-12">
-        <h2 class="title is-3">Generation Consistency</h2>
-          <div style="width: 100%; text-align: center;">
-            <img src="static/images/exp_consi.png" alt="exp_consi" style="max-width: 100%; height: auto; display: inline-block;">
-          </div>
-          <p class="content has-text-justified" style="margin-top: 1rem;">
-            To evaluate the consistency of our generative model, we generated egocentric images multiple times under identical conditions. 
-            As shown in the figure, we present four outputs generated from the same exocentric image and corresponding sparse map, and our model consistently produces coherent egocentric images across runs. 
-            Despite the inherent variability in generative models, <b>our method achieves stable and reliable exocentric-to-egocentric view translation, demonstrating its robustness and consistency.</b>
-          </p>
-      </div>
-    </div>
-  </div>
-</section> 
-
-
-<section class="section hero" id="BibTeX">
-  <div class="container is-max-widescreen">
-    <h2 class="title">BibTeX</h2>
-    <div style="max-width: 100%; overflow-x: auto;">
-      <pre style="margin: 0; white-space: pre-wrap; word-break: break-all;"><code>@article{park2025egoworld,
+          <pre><code id="bibtex-code">@article{park2025egoworld,
   author    = {Park, Junho and Ye, Andrew Sangwoo and Kwon, Taein},
   title     = {EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations},
   journal   = {arXiv preprint arXiv:2506.17896},
   year      = {2025},
 }</code></pre>
-    </div>
-  </div>
-</section>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<footer class="footer">
-  <div class="columns is-centered">
-    <div class="column is-8">
-      <div class="content">
-        <p>
-          This website is licensed under a <a rel="license"
-          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-        Commons Attribution-ShareAlike 4.0 International License</a>.
-      </p>
-      <p>
-        Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
-        href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
-      </p>
-    </div>
-  </div>
-</div>
-</div>
-</footer>
-
-
-  <script type="text/javascript">
-    var sc_project=12351448; 
-    var sc_invisible=1; 
-    var sc_security="c676de4f"; 
-  </script>
-  <script type="text/javascript"
-  src="https://www.statcounter.com/counter/counter.js"
-  async></script>
-  <noscript><div class="statcounter"><a title="Web Analytics"
-    href="https://statcounter.com/" target="_blank"><img
-    class="statcounter"
-    src="https://c.statcounter.com/12351448/0/c676de4f/1/"
-    alt="Web Analytics"></a></div></noscript>
-    <!-- End of Statcounter Code -->
-
-  </body>
-  </html>
+</body>
+</html>
