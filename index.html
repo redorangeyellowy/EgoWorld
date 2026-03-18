@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta property="og:title" content="EgoWorld: Translating Exocentric View to Egocentric View using Rich Exocentric Observations">
-  <meta property="og:description" content="A two-stage framework that reconstructs egocentric views from a single exocentric image using sparse geometry, 3D hand pose, and textual guidance.">
+  <meta property="og:description" content="A two-stage framework that reconstructs egocentric views from a single exocentric image using point clouds, 3D hand poses, and textual descriptions, with state-of-the-art results on H2O, TACO, Assembly101, and Ego-Exo4D.">
   <meta property="og:url" content="https://redorangeyellowy.github.io/EgoWorld/">
   <meta property="og:image" content="static/images/teaser.png">
   <meta property="og:image:width" content="1200">
@@ -84,13 +84,13 @@
     <section class="section teaser-section">
       <div class="container is-max-desktop">
         <p class="tldr">
-          <strong>TL;DR.</strong> EgoWorld reconstructs a first-person view from a single third-person image by combining sparse geometry, predicted 3D egocentric hand pose, and textual scene understanding in a two-stage generation pipeline.
+          <strong>TL;DR.</strong> EgoWorld reconstructs a first-person view from a single exocentric image by predicting projected point-cloud observations, 3D egocentric hand pose, and textual scene context, then conditioning a diffusion model on those signals.
         </p>
 
         <figure class="paper-figure">
           <img src="static/images/teaser.png" alt="EgoWorld teaser figure showing exocentric-to-egocentric translation examples">
           <figcaption>
-            EgoWorld translates a single exocentric view into an egocentric one by leveraging complementary observations predicted from the source image.
+            EgoWorld translates a single exocentric view into an egocentric one by leveraging complementary exocentric observations, including point clouds, 3D hand poses, and textual descriptions.
           </figcaption>
         </figure>
       </div>
@@ -101,10 +101,10 @@
         <div class="text-block">
           <h2 class="section-title">Abstract</h2>
           <p>
-            Egocentric vision is essential for both human and machine visual understanding, particularly in capturing the detailed hand-object interactions needed for manipulation tasks. Translating third-person views into first-person views significantly benefits augmented reality, virtual reality, and robotics applications. However, existing exocentric-to-egocentric translation methods depend heavily on 2D cues, synchronized multi-view settings, or unrealistic assumptions such as having an initial egocentric frame and relative camera poses available at inference time.
+            Egocentric vision is central to understanding fine-grained hand-object interaction, but translating an exocentric image into an egocentric view remains difficult when methods rely only on 2D cues, synchronized multi-view capture, or assumptions such as an initial egocentric frame and known relative camera poses at inference time. EgoWorld addresses that setting directly from a single exocentric image.
           </p>
           <p>
-            EgoWorld addresses these limitations with a two-stage framework that reconstructs an egocentric image from rich exocentric observations, including projected point clouds, 3D hand poses, and textual descriptions. The system first predicts observation signals from a single exocentric image, then uses them to guide diffusion-based inpainting for dense and semantically coherent egocentric view synthesis. Across the H2O and TACO datasets, EgoWorld achieves state-of-the-art performance and shows strong generalization to new objects, actions, scenes, subjects, and real-world captures.
+            The framework first extracts rich exocentric observations, including a projected sparse egocentric RGB map derived from point clouds, a predicted 3D egocentric hand pose, and a textual description of the scene and interaction. It then conditions a diffusion-based reconstruction model on those observations to produce dense, semantically coherent egocentric images. Across H2O, TACO, Assembly101, and Ego-Exo4D, EgoWorld achieves state-of-the-art performance and retains strong generalization on unseen objects, actions, scenes, subjects, and in-the-wild captures.
           </p>
         </div>
       </div>
@@ -115,7 +115,7 @@
         <div class="section-header">
           <h2 class="section-title">Method Overview</h2>
           <p class="section-subtitle">
-            EgoWorld separates observation prediction from final image synthesis so the output remains grounded in geometry and semantics.
+            EgoWorld separates exocentric observation extraction from egocentric reconstruction so geometry, pose, and semantics all remain explicit conditioning signals.
           </p>
         </div>
 
@@ -123,7 +123,7 @@
           <figure class="paper-figure method-figure">
             <img src="static/images/method.png" alt="EgoWorld method overview diagram">
             <figcaption>
-              Stage 1 predicts structured egocentric observations from the exocentric image, and stage 2 reconstructs the final egocentric view from those observations.
+              EgoWorld first extracts projected point-cloud cues, 3D hand pose, and a textual description from the exocentric image, then reconstructs the final egocentric view from those observations.
             </figcaption>
           </figure>
 
@@ -132,7 +132,7 @@
               <p class="card-label">Stage 1</p>
               <h3>Exocentric observation \( \Phi_{exo} \)</h3>
               <p>
-                Given a single exocentric image \( I_{exo} \), EgoWorld predicts a sparse egocentric RGB map \( S_{ego} \), a 3D egocentric hand pose \( P_{ego} \), and a textual description \( T_{exo} \).
+                Given a single exocentric image \( I_{exo} \), EgoWorld estimates depth, reconstructs a metrically scaled point cloud, projects it into the egocentric frame as a sparse RGB map \( S_{ego} \), predicts a 3D egocentric hand pose \( P_{ego} \), and extracts a textual description \( T_{exo} \).
               </p>
             </article>
 
@@ -169,7 +169,7 @@
               <p class="card-label">Stage 2</p>
               <h3>Egocentric reconstruction \( \Phi_{ego} \)</h3>
               <p>
-                The sparse map, predicted pose, and language description are fused to generate the final egocentric image \( \hat{I}_{ego} \), allowing recovery of unseen object and scene content.
+                The sparse map, pose embedding, and text embedding are fused in a latent diffusion model to generate the final egocentric image \( \hat{I}_{ego} \), recovering both local hand-object interaction and broader scene context.
               </p>
             </article>
           </div>
@@ -192,19 +192,9 @@
         <div class="section-header">
           <h2 class="section-title">Core Results</h2>
           <p class="section-subtitle">
-            EgoWorld consistently reconstructs more plausible first-person views than prior methods, especially beyond the hand region.
+            The updated paper evaluates EgoWorld across four benchmark datasets, six quantitative metrics, and real-world captures.
           </p>
         </div>
-
-        <article class="result-block">
-          <h3>Real-World Generalization</h3>
-          <div class="media-frame">
-            <img src="static/images/exp_itw.png" alt="Real-world generalization examples">
-          </div>
-          <p>
-            Using only a single smartphone image as input, EgoWorld produces realistic egocentric views in unseen real-world settings. Compared with CFLD, the generated images stay more natural and better aligned with the actual interaction scenario.
-          </p>
-        </article>
 
         <article class="result-block">
           <h3>Comparisons on H2O Dataset</h3>
@@ -214,7 +204,7 @@
 
           <div class="comparison-table-block">
             <p class="comparison-table-caption">
-              <strong>Table 1.</strong> Comparisons with state-of-the-arts on unseen scenarios in H2O. Compared to prior methods, EgoWorld performs best across unseen objects, actions, scenes, and subjects on all reported metrics.
+              <strong>Table 1.</strong> On H2O unseen objects, actions, scenes, and subjects, EgoWorld outperforms prior methods across image quality, hand accuracy, and semantic alignment metrics: FID, PSNR, SSIM, LPIPS, PA-MPJPE, and CLIPScore.
             </p>
 
             <div class="comparison-table-scroll">
@@ -222,28 +212,36 @@
                 <thead>
                   <tr>
                     <th rowspan="2">Methods</th>
-                    <th colspan="4">Unseen Objects</th>
-                    <th colspan="4">Unseen Actions</th>
-                    <th colspan="4">Unseen Scenes</th>
-                    <th colspan="4">Unseen Subjects</th>
+                    <th colspan="6">Unseen Objects</th>
+                    <th colspan="6">Unseen Actions</th>
+                    <th colspan="6">Unseen Scenes</th>
+                    <th colspan="6">Unseen Subjects</th>
                   </tr>
                   <tr>
                     <th>FID&#8595;</th>
                     <th>PSNR&#8593;</th>
                     <th>SSIM&#8593;</th>
                     <th>LPIPS&#8595;</th>
+                    <th>PA-MPJPE&#8595;</th>
+                    <th>CLIPScore&#8593;</th>
                     <th>FID&#8595;</th>
                     <th>PSNR&#8593;</th>
                     <th>SSIM&#8593;</th>
                     <th>LPIPS&#8595;</th>
+                    <th>PA-MPJPE&#8595;</th>
+                    <th>CLIPScore&#8593;</th>
                     <th>FID&#8595;</th>
                     <th>PSNR&#8593;</th>
                     <th>SSIM&#8593;</th>
                     <th>LPIPS&#8595;</th>
+                    <th>PA-MPJPE&#8595;</th>
+                    <th>CLIPScore&#8593;</th>
                     <th>FID&#8595;</th>
                     <th>PSNR&#8593;</th>
                     <th>SSIM&#8593;</th>
                     <th>LPIPS&#8595;</th>
+                    <th>PA-MPJPE&#8595;</th>
+                    <th>CLIPScore&#8593;</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -253,18 +251,26 @@
                     <td>25.012</td>
                     <td>0.2993</td>
                     <td>0.6057</td>
+                    <td>18.007</td>
+                    <td>0.2302</td>
                     <td>211.10</td>
                     <td>24.420</td>
                     <td>0.2854</td>
                     <td>0.6127</td>
+                    <td>17.754</td>
+                    <td>0.2450</td>
                     <td>490.32</td>
                     <td>18.567</td>
                     <td>0.2425</td>
                     <td>0.7290</td>
+                    <td>20.229</td>
+                    <td>0.2159</td>
                     <td>452.13</td>
                     <td>18.172</td>
                     <td>0.3310</td>
                     <td>0.7234</td>
+                    <td>21.357</td>
+                    <td>0.2311</td>
                   </tr>
                   <tr>
                     <th scope="row">pixelNeRF [45]</th>
@@ -272,18 +278,26 @@
                     <td>26.557</td>
                     <td>0.3887</td>
                     <td>0.5372</td>
+                    <td>15.746</td>
+                    <td>0.2270</td>
                     <td>251.76</td>
                     <td>27.061</td>
                     <td>0.3950</td>
                     <td>0.8159</td>
+                    <td>14.636</td>
+                    <td>0.2315</td>
                     <td>489.13</td>
                     <td>26.537</td>
                     <td>0.2574</td>
                     <td>0.7143</td>
+                    <td>17.085</td>
+                    <td>0.2097</td>
                     <td>493.13</td>
                     <td>22.636</td>
                     <td>0.4135</td>
                     <td>0.6838</td>
+                    <td>18.131</td>
+                    <td>0.2263</td>
                   </tr>
                   <tr>
                     <th scope="row">CFLD [46]</th>
@@ -291,18 +305,26 @@
                     <td>25.922</td>
                     <td>0.4307</td>
                     <td>0.4539</td>
+                    <td>7.9971</td>
+                    <td>0.2656</td>
                     <td>50.953</td>
                     <td>28.529</td>
                     <td>0.4324</td>
                     <td>0.4593</td>
+                    <td>8.1199</td>
+                    <td>0.2699</td>
                     <td>118.10</td>
                     <td>29.030</td>
                     <td>0.3696</td>
                     <td>0.6841</td>
+                    <td>7.8766</td>
+                    <td>0.2506</td>
                     <td>129.30</td>
                     <td>21.050</td>
                     <td>0.4001</td>
                     <td>0.6269</td>
+                    <td>9.5606</td>
+                    <td>0.2461</td>
                   </tr>
                   <tr class="is-ours">
                     <th scope="row">EgoWorld (Ours)</th>
@@ -310,35 +332,177 @@
                     <td>31.171</td>
                     <td>0.4814</td>
                     <td>0.3476</td>
+                    <td>7.3178</td>
+                    <td>0.2731</td>
                     <td>33.284</td>
                     <td>31.620</td>
                     <td>0.4566</td>
                     <td>0.3780</td>
+                    <td>7.2602</td>
+                    <td>0.2824</td>
                     <td>90.893</td>
                     <td>31.004</td>
                     <td>0.4096</td>
                     <td>0.6519</td>
+                    <td>7.4087</td>
+                    <td>0.2585</td>
                     <td>96.429</td>
                     <td>24.851</td>
                     <td>0.4605</td>
                     <td>0.6188</td>
+                    <td>8.1031</td>
+                    <td>0.2582</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
           <p>
-            On H2O, prior approaches either add heavy artifacts, blur away details, or only reconstruct the hand region. EgoWorld better transfers object and scene information from the exocentric observation space, yielding stronger realism and quantitative performance across unseen scenarios.
+            On H2O, EgoWorld improves over CFLD in every unseen setting while also lifting pose accuracy and text-image alignment. The strongest gains come from combining geometric cues from sparse projection with semantic cues from language, which helps reconstruction beyond the hand region.
           </p>
         </article>
 
         <article class="result-block">
-          <h3>Comparisons on TACO Dataset</h3>
+          <h3>Comparisons on TACO, Assembly101, and Ego-Exo4D</h3>
           <div class="media-frame">
-            <img src="static/images/exp_comp_taco.png" alt="Comparisons on the TACO dataset">
+            <img src="static/images/exp_comp_taco.png" alt="Comparisons on TACO, Assembly101, and Ego-Exo4D">
+          </div>
+          <div class="comparison-table-block">
+            <p class="comparison-table-caption">
+              <strong>Table 2.</strong> EgoWorld also generalizes to unseen-action settings on TACO, Assembly101, and Ego-Exo4D, consistently outperforming prior methods across image quality, pose, and semantic metrics.
+            </p>
+
+            <div class="comparison-table-scroll">
+              <table class="comparison-table comparison-table--benchmarks">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Methods</th>
+                    <th colspan="6">TACO</th>
+                    <th colspan="6">Assembly101</th>
+                    <th colspan="6">Ego-Exo4D</th>
+                  </tr>
+                  <tr>
+                    <th>FID&#8595;</th>
+                    <th>PSNR&#8593;</th>
+                    <th>SSIM&#8593;</th>
+                    <th>LPIPS&#8595;</th>
+                    <th>PA-MPJPE&#8595;</th>
+                    <th>CLIPScore&#8593;</th>
+                    <th>FID&#8595;</th>
+                    <th>PSNR&#8593;</th>
+                    <th>SSIM&#8593;</th>
+                    <th>LPIPS&#8595;</th>
+                    <th>PA-MPJPE&#8595;</th>
+                    <th>CLIPScore&#8593;</th>
+                    <th>FID&#8595;</th>
+                    <th>PSNR&#8593;</th>
+                    <th>SSIM&#8593;</th>
+                    <th>LPIPS&#8595;</th>
+                    <th>PA-MPJPE&#8595;</th>
+                    <th>CLIPScore&#8593;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">pix2pixHD [44]</th>
+                    <td>227.87</td>
+                    <td>25.875</td>
+                    <td>0.2806</td>
+                    <td>0.7037</td>
+                    <td>19.054</td>
+                    <td>0.2309</td>
+                    <td>350.97</td>
+                    <td>17.107</td>
+                    <td>0.3587</td>
+                    <td>0.6578</td>
+                    <td>21.967</td>
+                    <td>0.2114</td>
+                    <td>401.48</td>
+                    <td>14.792</td>
+                    <td>0.3065</td>
+                    <td>0.6899</td>
+                    <td>25.082</td>
+                    <td>0.2203</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">pixelNeRF [45]</th>
+                    <td>302.19</td>
+                    <td>26.661</td>
+                    <td>0.3888</td>
+                    <td>0.8543</td>
+                    <td>16.137</td>
+                    <td>0.2251</td>
+                    <td>356.44</td>
+                    <td>19.037</td>
+                    <td>0.3761</td>
+                    <td>0.6019</td>
+                    <td>19.658</td>
+                    <td>0.2070</td>
+                    <td>367.39</td>
+                    <td>17.347</td>
+                    <td>0.3618</td>
+                    <td>0.7134</td>
+                    <td>23.793</td>
+                    <td>0.2149</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">CFLD [46]</th>
+                    <td>61.357</td>
+                    <td>28.769</td>
+                    <td>0.4009</td>
+                    <td>0.5033</td>
+                    <td>7.9078</td>
+                    <td>0.2715</td>
+                    <td>53.931</td>
+                    <td>20.998</td>
+                    <td>0.3988</td>
+                    <td>0.5566</td>
+                    <td>11.108</td>
+                    <td>0.2458</td>
+                    <td>70.476</td>
+                    <td>21.578</td>
+                    <td>0.3614</td>
+                    <td>0.5975</td>
+                    <td>15.010</td>
+                    <td>0.2670</td>
+                  </tr>
+                  <tr class="is-ours">
+                    <th scope="row">EgoWorld (Ours)</th>
+                    <td>37.191</td>
+                    <td>30.155</td>
+                    <td>0.4237</td>
+                    <td>0.4025</td>
+                    <td>7.3590</td>
+                    <td>0.2828</td>
+                    <td>50.232</td>
+                    <td>25.365</td>
+                    <td>0.4101</td>
+                    <td>0.5142</td>
+                    <td>10.561</td>
+                    <td>0.2558</td>
+                    <td>61.231</td>
+                    <td>24.985</td>
+                    <td>0.3986</td>
+                    <td>0.5482</td>
+                    <td>13.992</td>
+                    <td>0.2862</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <p>
-            TACO covers broader action and object diversity than H2O. EgoWorld still restores both the hand and surrounding scene context more faithfully than CFLD, indicating that the improvement is robust across datasets.
+            The broader benchmark suite shows the same pattern as H2O: EgoWorld keeps improving local interaction fidelity while also recovering object appearance and scene structure. The gains remain consistent even as the datasets become more diverse and less controlled.
+          </p>
+        </article>
+
+        <article class="result-block">
+          <h3>Real-World Generalization</h3>
+          <div class="media-frame">
+            <img src="static/images/exp_itw.png" alt="Real-world generalization examples">
+          </div>
+          <p>
+            On in-the-wild smartphone captures, EgoWorld applies the full pipeline from a single RGB image and still produces coherent egocentric views. Compared with CFLD, the outputs remain better aligned with the actual interaction and less biased toward training-set appearance patterns.
           </p>
         </article>
       </div>
@@ -349,7 +513,7 @@
         <div class="section-header">
           <h2 class="section-title">Analysis</h2>
           <p class="section-subtitle">
-            The ablations show that EgoWorld benefits from multimodal conditioning, a diffusion-based completion backbone, and stable exocentric-to-egocentric pose prediction.
+            The updated analyses cover multimodal conditioning, reconstruction backbones, pose modeling, generation stability, text controllability, and representative failure cases.
           </p>
         </div>
 
@@ -365,7 +529,7 @@
                   <p class="card-label">01</p>
                   <h3>Effect of Conditioning Modalities</h3>
                   <p>
-                    Text improves unseen object reconstruction, while pose cues improve hand fidelity. EgoWorld performs best when both signals are used together.
+                    Text contributes most to object and scene semantics, while pose improves hand configuration. The best results come from using both together; removing both recovers the degraded 4Diff-style setting.
                   </p>
                 </div>
                 <div class="media-frame">
@@ -378,7 +542,7 @@
                   <p class="card-label">02</p>
                   <h3>Backbone of Image Completion</h3>
                   <p>
-                    Compared with MAE and MAT variants, the latent diffusion backbone preserves both local hand-object details and overall scene consistency more effectively.
+                    Compared with MAE and MAT variants, the LDM backbone produces the most coherent egocentric reconstructions because it can combine sparse geometry, pose, and text during iterative denoising.
                   </p>
                 </div>
                 <div class="media-frame">
@@ -389,22 +553,35 @@
               <article class="analysis-slide">
                 <div class="analysis-slide-copy">
                   <p class="card-label">03</p>
-                  <h3>3D Egocentric Hand Pose Estimation from Exocentric View</h3>
+                  <h3>Pose Modeling Strategies</h3>
                   <p>
-                    The predicted egocentric hand pose stays close to the target interaction and provides useful structure for both geometric alignment and final generation.
+                    Egocentric hand pose estimation works better than camera-pose or whole-body alternatives in this setting. The ViT-based hand estimator is the most reliable because the hands remain the most observable body part in exocentric interaction scenes.
                   </p>
                 </div>
                 <div class="media-frame">
-                  <img src="static/images/exp_egopose.png" alt="3D egocentric hand pose estimation from exocentric view">
+                  <img src="static/images/exp_egopose.png" alt="Pose modeling strategies">
                 </div>
               </article>
 
               <article class="analysis-slide">
                 <div class="analysis-slide-copy">
                   <p class="card-label">04</p>
+                  <h3>Generation Consistency</h3>
+                  <p>
+                    Repeated sampling under the same conditions produces consistent egocentric views. The model remains stochastic, but the generated interaction layout and scene structure stay stable across runs.
+                  </p>
+                </div>
+                <div class="media-frame">
+                  <img src="static/images/exp_consi.png" alt="Generation consistency results">
+                </div>
+              </article>
+
+              <article class="analysis-slide">
+                <div class="analysis-slide-copy">
+                  <p class="card-label">05</p>
                   <h3>Incorrect Textual Description Guidance</h3>
                   <p>
-                    When the language description is intentionally wrong, the generated object changes accordingly, showing that the model genuinely uses textual semantics during synthesis.
+                    When the text description is intentionally mismatched, EgoWorld changes appearance-level object and scene semantics while preserving the underlying geometry from the sparse map.
                   </p>
                 </div>
                 <div class="media-frame">
@@ -414,14 +591,14 @@
 
               <article class="analysis-slide">
                 <div class="analysis-slide-copy">
-                  <p class="card-label">05</p>
-                  <h3>Generation Consistency</h3>
+                  <p class="card-label">06</p>
+                  <h3>Failure Cases</h3>
                   <p>
-                    Even though diffusion models are stochastic, repeated generations from the same exocentric input remain visually coherent, suggesting that EgoWorld is stable enough for practical use.
+                    The hardest cases still involve subtle finger articulation, heavily occluded objects, and inaccurate language descriptions from the VLM. Those errors can propagate into the final reconstruction even when the global structure is mostly correct.
                   </p>
                 </div>
                 <div class="media-frame">
-                  <img src="static/images/exp_consi.png" alt="Generation consistency results">
+                  <img src="static/images/exp_fail_h2o.png" alt="Representative failure cases on H2O">
                 </div>
               </article>
             </div>
@@ -433,7 +610,7 @@
         </div>
 
         <div class="analysis-meta">
-          <p class="analysis-counter" data-analysis-counter>1 / 5</p>
+          <p class="analysis-counter" data-analysis-counter>1 / 6</p>
           <div class="analysis-dots" data-analysis-dots></div>
         </div>
       </div>
