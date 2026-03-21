@@ -439,6 +439,15 @@ img {
 
 .media-frame {
   margin-bottom: 0.95rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.media-frame img {
+  max-width: 100%;
+  height: auto;
 }
 
 .media-grid {

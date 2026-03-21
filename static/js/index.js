@@ -36,6 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach((section) => observer.observe(section));
   }
 
+  // Immediate nav-link active style on click (e.g. results / bibtex 메뉴 클릭 시 언더라인 적용)
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      navLinks.forEach((l) => l.classList.remove('is-active'));
+      link.classList.add('is-active');
+    });
+  });
+
   const titleHighlightRoot = document.querySelector('[data-title-highlight]');
   if (titleHighlightRoot) {
     const titleText = titleHighlightRoot.querySelector('[data-title-highlight-text]');
