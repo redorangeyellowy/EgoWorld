@@ -13,7 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
       (entries) => {
         const visibleEntries = entries
           .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+          .sort((a, b) => {
+            // 섹션의 중심이 뷰포트 중심에 가까운 것을 우선 선택
+            const aCenter = a.boundingClientRect.top + a.boundingClientRect.height / 2;
+            const bCenter = b.boundingClientRect.top + b.boundingClientRect.height / 2;
+            const viewportCenter = window.innerHeight / 2;
+            const aDistance = Math.abs(aCenter - viewportCenter);
+            const bDistance = Math.abs(bCenter - viewportCenter);
+            return aDistance - bDistance;
+          });
 
         if (visibleEntries.length === 0) {
           return;
@@ -28,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       },
       {
-        rootMargin: '-10% 0px -70% 0px',
+        rootMargin: '-5% 0px -80% 0px',
         threshold: [0.1, 0.3, 0.6]
       }
     );
