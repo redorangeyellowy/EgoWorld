@@ -185,7 +185,7 @@
         <div class="section-header">
           <h2 class="section-title">Results</h2>
           <p class="section-subtitle">
-            The updated paper evaluates EgoWorld across four benchmark datasets, six quantitative metrics, and real-world captures.
+            We evaluate EgoWorld across four benchmark datasets, six quantitative metrics, and real-world scenarios.
           </p>
         </div>
 
@@ -197,7 +197,7 @@
 
           <div class="comparison-table-block">
             <p class="comparison-table-caption">
-              <strong>Table 1.</strong> On H2O unseen objects, actions, scenes, and subjects, EgoWorld outperforms prior methods across image quality, hand accuracy, and semantic alignment metrics: FID, PSNR, SSIM, LPIPS, PA-MPJPE, and CLIPScore.
+              <strong>Table 1.</strong> On unseen object, action, scene, and subject scenarios of H2O, EgoWorld outperforms prior methods across image quality, hand accuracy, and semantic alignment metrics: FID, PSNR, SSIM, LPIPS, PA-MPJPE, and CLIPScore.
             </p>
 
             <div class="comparison-table-scroll">
@@ -351,18 +351,18 @@
             </div>
           </div>
           <p>
-            On H2O, EgoWorld improves over CFLD in every unseen setting while also lifting pose accuracy and text-image alignment. The strongest gains come from combining geometric cues from sparse projection with semantic cues from language, which helps reconstruction beyond the hand region.
+            On H2O, EgoWorld improves over baselines in every unseen setting while also lifting pose accuracy and text-image alignment. The strongest gains come from combining geometric cues from sparse projection with semantic cues from language, which helps reconstruction beyond the hand region.
           </p>
         </article>
 
         <article class="result-block">
-          <h3>Comparisons on TACO, Assembly101, and Ego-Exo4D</h3>
+          <h3>Comparisons on TACO, Assembly101, and Ego-Exo4D Datasets</h3>
           <div class="media-frame">
             <img src="static/images/exp_comp_taco.png" alt="Comparisons on TACO, Assembly101, and Ego-Exo4D">
           </div>
           <div class="comparison-table-block">
             <p class="comparison-table-caption">
-              <strong>Table 2.</strong> EgoWorld also generalizes to unseen-action settings on TACO, Assembly101, and Ego-Exo4D, consistently outperforming prior methods across image quality, pose, and semantic metrics.
+              <strong>Table 2.</strong> EgoWorld generalizes to unseen action scenarios on TACO, Assembly101, and Ego-Exo4D, consistently outperforming prior methods across image quality, pose, and semantic metrics.
             </p>
 
             <div class="comparison-table-scroll">
@@ -485,17 +485,17 @@
             </div>
           </div>
           <p>
-            The broader benchmark suite shows the same pattern as H2O: EgoWorld keeps improving local interaction fidelity while also recovering object appearance and scene structure. The gains remain consistent even as the datasets become more diverse and less controlled.
+            The results on broader benchmark show the same pattern as H2O: EgoWorld keeps improving local interaction fidelity while also recovering object appearance and scene structure. The gains remain consistent even as the datasets become more diverse and less controlled.
           </p>
         </article>
 
         <article class="result-block">
-          <h3>Real-World Generalization</h3>
+          <h3>Comparisons on Real-World Scenarios</h3>
           <div class="media-frame">
             <img src="static/images/exp_itw.png" alt="Real-world generalization examples">
           </div>
           <p>
-            On in-the-wild smartphone captures, EgoWorld applies the full pipeline from a single RGB image and still produces coherent egocentric views. Compared with CFLD, the outputs remain better aligned with the actual interaction and less biased toward training-set appearance patterns.
+            On in-the-wild smartphone captures, EgoWorld still produces coherent egocentric view images. Compared with the baseline, the outputs remain better aligned with the actual interaction and less biased toward training-set appearance patterns.
           </p>
         </article>
       </div>
@@ -506,7 +506,7 @@
         <div class="section-header">
           <h2 class="section-title">Analysis</h2>
           <p class="section-subtitle">
-            The updated analyses cover multimodal conditioning, reconstruction backbones, pose modeling, generation stability, text controllability, and representative failure cases.
+            We cover multimodal conditioning, reconstruction backbones, pose modeling, generation stability, text controllability, and representative failure cases.
           </p>
         </div>
 
@@ -574,7 +574,7 @@
                   <p class="card-label">05</p>
                   <h3>Incorrect Textual Description Guidance</h3>
                   <p>
-                    When the text description is intentionally mismatched, EgoWorld changes appearance-level object and scene semantics while preserving the underlying geometry from the sparse map.
+                    When the textual description is intentionally mismatched, EgoWorld changes appearance-level object and scene semantics while preserving the underlying geometry from the sparse map.
                   </p>
                 </div>
                 <div class="media-frame">
