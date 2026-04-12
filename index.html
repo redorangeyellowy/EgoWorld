@@ -84,14 +84,11 @@
     <section class="section teaser-section">
       <div class="container is-max-desktop">
         <p class="tldr">
-          <strong>TL;DR.</strong> EgoWorld reconstructs a first-person view from a single exocentric image by predicting projected point-cloud observations, 3D egocentric hand pose, and textual scene context, then conditioning a diffusion model on those signals.
+          <strong>TL;DR.</strong> EgoWorld reconstructs an egocentric view from an exocentric view by predicting point clouds, 3D hand poses, and textual descriptions, then conditioning a diffusion model on those observations.
         </p>
 
         <figure class="paper-figure">
           <img src="static/images/teaser.png" alt="EgoWorld teaser figure showing exocentric-to-egocentric translation examples">
-          <figcaption>
-            EgoWorld translates a single exocentric view into an egocentric one by leveraging complementary exocentric observations, including point clouds, 3D hand poses, and textual descriptions.
-          </figcaption>
         </figure>
       </div>
     </section>
@@ -104,7 +101,7 @@
             Egocentric vision is central to understanding fine-grained hand-object interaction, but translating an exocentric image into an egocentric view remains difficult when methods rely only on 2D cues, synchronized multi-view capture, or assumptions such as an initial egocentric frame and known relative camera poses at inference time. EgoWorld addresses that setting directly from a single exocentric image.
           </p>
           <p>
-            The framework first extracts rich exocentric observations, including a projected sparse egocentric RGB map derived from point clouds, a predicted 3D egocentric hand pose, and a textual description of the scene and interaction. It then conditions a diffusion-based reconstruction model on those observations to produce dense, semantically coherent egocentric images. Across H2O, TACO, Assembly101, and Ego-Exo4D, EgoWorld achieves state-of-the-art performance and retains strong generalization on unseen objects, actions, scenes, subjects, and in-the-wild captures.
+            The framework first extracts rich exocentric observations, including an egocentric sparse RGB map derived from point clouds, an egocentric 3D hand pose, and a textual description of the scene and interaction. It then conditions a diffusion-based reconstruction model on those observations to generate dense, semantically coherent egocentric images. Across H2O, TACO, Assembly101, and Ego-Exo4D, EgoWorld achieves state-of-the-art performance and retains strong generalization on unseen objects, actions, scenes, subjects, and in-the-wild scenarios.
           </p>
         </div>
       </div>
@@ -114,17 +111,11 @@
       <div class="container is-max-desktop">
         <div class="section-header">
           <h2 class="section-title">Method</h2>
-          <p class="section-subtitle">
-            EgoWorld separates exocentric observation extraction from egocentric reconstruction so geometry, pose, and semantics all remain explicit conditioning signals.
-          </p>
         </div>
 
         <div class="method-layout">
           <figure class="paper-figure method-figure">
             <img src="static/images/method.png" alt="EgoWorld method overview diagram">
-            <figcaption>
-              EgoWorld first extracts projected point-cloud cues, 3D hand pose, and a textual description from the exocentric image, then reconstructs the final egocentric view from those observations.
-            </figcaption>
           </figure>
 
           <div class="method-flow" aria-label="Two-stage method flow">
@@ -169,7 +160,7 @@
               <p class="card-label">Stage 2</p>
               <h3>Egocentric View Reconstruction \( \Phi_{ego} \)</h3>
               <p>
-                The sparse map, pose embedding, and text embedding are fused in a latent diffusion model to generate the final egocentric image \( \hat{I}_{ego} \), recovering both local hand-object interaction and broader scene context.
+                The sparse and pose embedding, and text embedding are fused in a latent diffusion model to generate the final egocentric image \( \hat{I}_{ego} \), recovering both local hand-object interaction and global scene context.
               </p>
             </article>
           </div>
@@ -178,7 +169,9 @@
             <p class="card-label">Formulation</p>
             <div class="formula-box">
               \[
-              S_{ego}, P_{ego}, T_{exo} = \Phi_{exo}(I_{exo}),\\
+              S_{ego}, P_{ego}, T_{exo} = \Phi_{exo}(I_{exo}),
+              \]
+              \[
               \hat{I}_{ego} = \Phi_{ego}(S_{ego}, P_{ego}, T_{exo}).
               \]
             </div>
