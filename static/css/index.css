@@ -92,7 +92,7 @@ img {
   text-transform: uppercase;
   font-size: 0.95rem;
 }
-/* 
+
 .publication-title {
   margin: 0;
   max-width: 24ch;
@@ -145,76 +145,6 @@ img {
 .publication-title-effect {
   position: absolute;
   inset: 0;
-  background: conic-gradient(
-    from 90deg,
-    #1d243a 0%,
-    #3757cf 7%,
-    #768fde 11%,
-    #f4e4bb 20%,
-    #ffd06b 26%,
-    #ffb269 34%,
-    #fe8b71 44%,
-    #f46e5a 52%,
-    #c03764 61%,
-    #fdedf7 65%,
-    #f9e17e 70%,
-    #c6d6fb 76%,
-    #5156b9 82%,
-    #1d243a 100%
-  );
-  animation: publicationTitleHighlightRotate 8s linear infinite;
-} */
-
-.publication-title {
-  margin: 0;
-  max-width: 24ch;
-  text-align: center;
-  font-size: clamp(2.05rem, 3.7vw, 3.2rem);
-  line-height: 1.28;
-  letter-spacing: -0.03em;
-  padding: 0.04em 0 0.08em;
-  position: relative;
-  z-index: 1; /* 이펙트보다 위에 오도록 조정 */
-  
-  /* [핵심 수정] 텍스트가 배경 이펙트를 투과시키도록 설정 */
-  background: inherit; 
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent; /* 글자 색을 투명하게 해서 배경이 보이게 함 */
-}
-
-.publication-title-highlight {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center; /* 텍스트 중앙 정렬 유지 */
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.publication-title-effect-wrapper {
-  z-index: -1;
-  pointer-events: none;
-  width: 100%; /* 고정 크기 대신 텍스트 영역을 덮도록 설정 */
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  
-  /* [핵심 수정] 마스크 제거 및 상시 노출 설정 */
-  -webkit-mask-image: none;
-  mask-image: none;
-  opacity: 1;
-}
-
-.publication-title-effect {
-  position: absolute;
-  /* 텍스트 영역을 충분히 덮을 수 있는 크기 (회전 반경 고려) */
-  inset: -100%; 
   background: conic-gradient(
     from 90deg,
     #1d243a 0%,
