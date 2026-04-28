@@ -92,7 +92,7 @@ img {
   text-transform: uppercase;
   font-size: 0.95rem;
 }
-/* 
+
 .publication-title {
   margin: 0;
   max-width: 24ch;
@@ -184,67 +184,6 @@ img {
 
   100% {
     transform: rotate(360deg);
-  }
-} */
-
-/* 1. 타이틀 설정: 배경을 글자 모양으로 자릅니다 */
-.publication-title {
-  margin: 0;
-  max-width: 24ch;
-  text-align: center;
-  font-size: clamp(2.05rem, 3.7vw, 3.2rem);
-  line-height: 1.28;
-  letter-spacing: -0.03em;
-  padding: 0.04em 0 0.08em;
-  position: relative;
-  z-index: 1;
-
-  /* 핵심: 배경 설정 및 클리핑 */
-  background: conic-gradient(
-    from 90deg,
-    #1d243a 0%, #3757cf 7%, #768fde 11%, #f4e4bb 20%,
-    #ffd06b 26%, #ffb269 34%, #fe8b71 44%, #f46e5a 52%,
-    #c03764 61%, #fdedf7 65%, #f9e17e 70%, #c6d6fb 76%,
-    #5156b9 82%, #1d243a 100%
-  );
-  background-size: 200% 200%; /* 그라데이션이 더 부드럽게 흐르도록 확장 */
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent; /* 글자 본래 색을 투명하게 */
-  
-  /* 애니메이션: 배경 위치를 이동시켜 회전하는 느낌 부여 */
-  animation: publicationTitleFlow 5s linear infinite;
-}
-
-/* 2. 하이라이트 컨테이너: 마스크 관련 복잡한 설정 제거 */
-.publication-title-highlight {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-}
-
-/* 3. 기존의 무거운 wrapper와 effect 요소는 상시 노출 시 불필요하므로 숨김 처리 */
-.publication-title-effect-wrapper,
-.publication-title-custom-select {
-  display: none;
-}
-
-/* 4. 새로운 흐르는 듯한 애니메이션 (conic-gradient는 직접 회전보다 이동이 자연스러움) */
-@keyframes publicationTitleFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
   }
 }
 
