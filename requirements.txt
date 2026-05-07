@@ -1,0 +1,13 @@
+--index-url https://download.pytorch.org/whl/cu121
+
+torch==2.4.1
+torchvision==0.19.1
+
+pytorch-lightning==1.6.5
+opencv-python
+einops
+omegaconf
+transformers==4.37.2
+open_clip_torch==2.32.0
+clip
+kornia
